@@ -20,6 +20,7 @@ public class Adherent {
     @Id
     private Integer id;
     private String nom;
+    private String prenom;
     private Date dateN;
     private char sexe;
     private String tel;
@@ -30,6 +31,7 @@ public class Adherent {
     private String PCATel;
     private String maladie;
     private String cin;
+    private String GroupeSanguin;
     @Transient
-    private GroupeSanguin GroupeSanguin;
+    private GroupeSanguin Groupe_Sanguin;
 }

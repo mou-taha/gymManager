@@ -28,13 +28,19 @@ public class Groupe {
     private Integer id;
     private String nom;
     private int nbplace;
+    
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_entraineur",referencedColumnName = "id")
     private Entraineur entraineur;
+
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_sport",referencedColumnName = "id")
     private Sport sport;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "adherent_groupe", joinColumns = @JoinColumn(name = "groupe_id"), inverseJoinColumns = @JoinColumn(name = "adherent_id"))
     private List<Adherent> adherents;
+
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_groupe",referencedColumnName = "id")
     private List<Planning> plannings;

@@ -27,8 +27,8 @@ public class Abonnement {
     private Date datePaiment;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="fk_adherent",referencedColumnName="id",nullable=false)
-    Adherent adherent;
+    private Adherent adherent;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="fk_sport",referencedColumnName="id",nullable=false)
-    Sport sport;
+    private Sport sport;
 }
