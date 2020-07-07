@@ -2,11 +2,11 @@ package ma.gymmanager.model;
 
 import java.util.Date;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,5 +30,6 @@ public class Adherent {
     private String PCATel;
     private String maladie;
     private String cin;
+    @Transient
     private GroupeSanguin GroupeSanguin;
 }
