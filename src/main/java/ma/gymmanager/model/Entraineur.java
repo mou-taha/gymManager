@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,4 +34,8 @@ public class Entraineur {
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name="entraineur_sport",joinColumns = @JoinColumn(name= "id_entraineur"),inverseJoinColumns = @JoinColumn(name ="id_sport"))
     private List<Sport> sports;
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_user",referencedColumnName = "id")
+    User user;
 }
