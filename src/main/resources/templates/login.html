@@ -41,10 +41,10 @@
                                     </div>
                                     <form class="user" th:action="@{/login}" method="POST">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                            <input type="text" class="form-control form-control-user" value="a" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" value="a" id="password" name="password" placeholder="Password">
                                             </br>
                                         </div>
                                         <div align="center" th:if="${param.error}">
