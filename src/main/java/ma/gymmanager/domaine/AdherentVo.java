@@ -1,10 +1,10 @@
 package ma.gymmanager.domaine;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.gymmanager.model.GroupeSanguin;
+import ma.gymmanager.model.User;
 
 @Data
 @NoArgsConstructor
@@ -12,7 +12,7 @@ public class AdherentVo {
     private Integer id;
     private String nom;
     private String prenom;
-    private Date dateN;
+    private LocalDate dateN;
     private char sexe;
     private String tel;
     private String email;
@@ -21,13 +21,16 @@ public class AdherentVo {
     private String PCANom;
     private String PCATel;
     private String maladie;
+    private String GroupeSanguin;
     private String cin;
-    private GroupeSanguin Groupe_Sanguin;
+    private String dateNString;
+    private User user;
 
-    public AdherentVo(String nom,String prenom, Date dateN, char sexe, String tel, String email, String ville, String adresse,
-            String pCANom, String pCATel, String maladie, String cin, GroupeSanguin groupe_Sanguin) {
+    public AdherentVo(String nom, String prenom, LocalDate dateN, char sexe, String tel, String email, String ville,
+            String adresse, String pCANom, String pCATel, String maladie, String cin, String dateNString, User user) {
+        this.user = user;
         this.nom = nom;
-        this.prenom=prenom;
+        this.prenom = prenom;
         this.dateN = dateN;
         this.sexe = sexe;
         this.tel = tel;
@@ -38,7 +41,7 @@ public class AdherentVo {
         PCATel = pCATel;
         this.maladie = maladie;
         this.cin = cin;
-        Groupe_Sanguin = groupe_Sanguin;
+        this.dateNString = dateNString;
     }
 
 }

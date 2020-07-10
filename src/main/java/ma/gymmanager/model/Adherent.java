@@ -1,5 +1,6 @@
 package ma.gymmanager.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -25,7 +26,7 @@ public class Adherent {
     private Integer id;
     private String nom;
     private String prenom;
-    private Date dateN;
+    private LocalDate dateN;
     private char sexe;
     private String tel;
     private String email;
@@ -37,9 +38,9 @@ public class Adherent {
     private String cin;
     private String GroupeSanguin;
     @Transient
-    private GroupeSanguin Groupe_Sanguin;
+    private String dateNString;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     @JoinColumn(name="fk_user",referencedColumnName = "id")
     private User user;
 }

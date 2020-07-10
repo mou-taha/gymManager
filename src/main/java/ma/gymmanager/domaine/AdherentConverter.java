@@ -11,14 +11,16 @@ public class AdherentConverter {
         if (bo == null)
             return null;
         AdherentVo vo = new AdherentVo();
+        vo.setUser(bo.getUser());
         vo.setId(bo.getId());
         vo.setNom(bo.getNom());
         vo.setPrenom(bo.getPrenom());
         vo.setAdresse(bo.getAdresse());
         vo.setCin(bo.getCin());
         vo.setDateN(bo.getDateN());
+        vo.setGroupeSanguin(bo.getGroupeSanguin());
+        vo.setDateNString(bo.getDateNString());
         vo.setEmail(bo.getEmail());
-        vo.setGroupe_Sanguin(bo.getGroupe_Sanguin());
         vo.setMaladie(bo.getMaladie());
         vo.setPCANom(bo.getPCANom());
         vo.setPCATel(bo.getPCATel());
@@ -31,14 +33,17 @@ public class AdherentConverter {
         if (vo == null)
             return null;
         Adherent bo = new Adherent();
+        bo.setUser(vo.getUser());
+        bo.setUser(vo.getUser());
         bo.setNom(vo.getNom());
         bo.setId(vo.getId());
         bo.setPrenom(vo.getPrenom());
         bo.setAdresse(vo.getAdresse());
+        bo.setGroupeSanguin(vo.getGroupeSanguin());
         bo.setCin(vo.getCin());
+        bo.setDateNString(vo.getDateNString());
         bo.setDateN(vo.getDateN());
         bo.setEmail(vo.getEmail());
-        bo.setGroupe_Sanguin(vo.getGroupe_Sanguin());
         bo.setMaladie(vo.getMaladie());
         bo.setPCANom(vo.getPCANom());
         bo.setPCATel(vo.getPCATel());
