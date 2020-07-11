@@ -88,6 +88,13 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li th:each="i : ${#numbers.sequence(0,totalPage-1)}" th:class=" ${#strings.equals(#strings.toString(i),#strings.toString(curentPage))}?'active page-item':'page-item'">
+                                    <a class="page-link" th:text=" ${i+1}" th:href="@{/adherents/{page}(page=${i})}"></a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                     <!--end row 3 (for table)-->
                     <!--modal add new -->

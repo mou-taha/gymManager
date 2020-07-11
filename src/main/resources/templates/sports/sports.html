@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header">
+    <meta name="author" content="">
+
+</head>
+
+<body>
+    <div th:if="${sportVoEdit.id!=null}">
+        <script>
+            $(document).ready(function() {
+                $("#edit").modal('show');
+            });
+        </script>
+    </div>
+    <div id="wrapper">
+        <nav th:replace="fragments/sidebar :: sidebar"> </nav>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="fragments/topbar :: topbar"></nav>
+                <div class="container-fluid">
+                    <!--row 1 (for title)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Liste des sports</h1>
+                        </div>
+                    </div>
+                    <!--end row 1 (for title)-->
+                    <!--row 2 (for button add)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">Ajouter</button>
+                        </div>
+                    </div>
+                    </br>
+                    <!--end row 2 (for button add)-->
+                    <!--row 3 (for table)-->
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>description</th>
+                                    <th>Prix Seance</th>
+                                    <th>Prix mois</th>
+                                    <th>Minimum age</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="sportVo : ${sportList}">
+                                    <td th:text="${sportVo.nom}"></td>
+                                    <td th:text="${sportVo.description}"></td>
+                                    <td th:text="${sportVo.prixSeance}+' MAD'"></td>
+                                    <td th:text=" ${sportVo.prixMois} + ' MAD'"></td>
+                                    <td th:text=" ${sportVo.minAge}"></td>
+                                    <td><a th:href="@{/sports/edit/{id}(id=${sportVo.id})}"><i class="far fa-edit"></i>
+                                        </a></td>
+                                    <td><a data-toggle="modal" data-target="#exampleModal" href="#"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Suppression adherent
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez vraiment supprimer sport [[|${sportVo.nom}|]]
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                    <a th:href="@{/sports/delete/{id}(id=${sportVo.id})}"> <button type="Submit" class="btn btn-danger">Supprimer</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li th:each="i : ${#numbers.sequence(0,totalPage-1)}" th:class=" ${#strings.equals(#strings.toString(i),#strings.toString(curentPage))}? 'active page-item': 'page-item'">
+                                    <a class="page-link" th:text=" ${i+1}" th:href="@{/sports/{page}(page=${i})}"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--end row 3 (for table)-->
+                    <!--modal add new -->
+                    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{/sports/save}" method="POST" th:object="${sportVo}">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ajouter Adherent</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="well">Information sport</h3>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="nom">Nom</label>
+                                                <input type="text" th:field="*{nom}" class="form-control" id="nom">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="desc">Description</label>
+                                                <input required type="text" th:field="*{description}" class="form-control" id="desc">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="prixs">Prix seance</label>
+                                                <input type="text" th:field="*{prixSeance}" class="form-control" id="prixs">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="prixm">Prix Mois</label>
+                                                <input required type="text" th:field="*{prixMois}" class="form-control" id="prixm">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="age">Minimum age</label>
+                                                <input type="number" th:field="*{minAge}" class="form-control" id="age">
+                                            </div>
+                                            <!--end input nom -->
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal and new-->
+                <!--modal edit -->
+                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form th:action="@{/sports/save}" method="POST" th:object="${sportVoEdit}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modifier sport</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="well">Information sport</h3>
+                                    <input type="hidden" th:field="*{id}" class="form-control" id="id">
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="nom">Nom</label>
+                                            <input type="text" th:field="*{nom}" class="form-control" id="nom">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="desc">Description</label>
+                                            <input required type="text" th:field="*{description}" class="form-control" id="desc">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="prixs">Prix seance</label>
+                                            <input type="text" th:field="*{prixSeance}" class="form-control" id="prixs">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="prixm">Prix Mois</label>
+                                            <input required type="text" th:field="*{prixMois}" class="form-control" id="prixm">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="age">Minimum age</label>
+                                            <input type="number" th:field="*{minAge}" class="form-control" id="age">
+                                        </div>
+                                        <!--end input nom -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--end modal edit-->
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

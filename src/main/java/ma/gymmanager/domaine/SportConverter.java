@@ -10,6 +10,7 @@ public class SportConverter {
             return null;
         SportVo vo = new SportVo();
         vo.setId(bo.getId());
+        vo.setNom(bo.getNom());
         vo.setMinAge(bo.getMinAge());
         vo.setPrixMois(bo.getPrixMois());
         vo.setPrixSeance(bo.getPrixSeance());
@@ -22,6 +23,7 @@ public class SportConverter {
             return null;
         Sport bo = new Sport();
         bo.setId(vo.getId());
+        bo.setNom(vo.getNom());
         bo.setMinAge(vo.getMinAge());
         bo.setPrixMois(vo.getPrixMois());
         bo.setPrixSeance(vo.getPrixSeance());

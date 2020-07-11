@@ -40,7 +40,7 @@ public class Adherent {
     @Transient
     private String dateNString;
 
-    @OneToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="fk_user",referencedColumnName = "id")
     private User user;
 }

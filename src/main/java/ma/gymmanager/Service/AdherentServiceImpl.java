@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +19,6 @@ import ma.gymmanager.dao.UserRepository;
 import ma.gymmanager.domaine.AdherentConverter;
 import ma.gymmanager.domaine.AdherentVo;
 import ma.gymmanager.model.Adherent;
-import ma.gymmanager.model.Role;
 import ma.gymmanager.model.User;
 
 @Service
@@ -52,7 +53,10 @@ public class AdherentServiceImpl implements IAdherentService {
 
     @Override
     public void delete(int id) {
-        adherentDao.delete(adherentDao.getOne(id));
+        Adherent a= adherentDao.getOne(id);
+        a.setUser(null);
+        adherentDao.save(a);
+        adherentDao.delete(a);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class AdherentServiceImpl implements IAdherentService {
         adherentDao.save(AdherentConverter.toBo(adherentVo));
         message.setTo(adherentVo.getEmail());
         message.setText("votre  nom d'utilisateur c'est " + adherentVo.getNom() + "_" + adherentVo.getPrenom()
-                + ".le mot de passe c'est :" +adherentVo.getCin());
+                + ".le mot de passe c'est :" + adherentVo.getCin());
         message.setSubject("Notification");
         MailSender.send(message);
     }
@@ -76,6 +80,11 @@ public class AdherentServiceImpl implements IAdherentService {
     @Override
     public AdherentVo getById(int id) {
         return AdherentConverter.toVo(adherentDao.getOne(id));
+    }
+
+    @Override
+    public Page<Adherent> findAll(int pageId, int size) {
+        return adherentDao.findAll(PageRequest.of(pageId, size));
     }
 
 }

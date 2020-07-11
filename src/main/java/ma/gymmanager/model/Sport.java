@@ -15,6 +15,7 @@ public class Sport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private String nom;
     private String description;
     private double prixSeance;
     private double prixMois;

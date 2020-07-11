@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="ma.gymmanager.model.Entraineur" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/Entraineur.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="465" y="287"/>    
+    <position height="709" width="155" x="191" y="486"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,165 +12,162 @@
   </class>  
   <class id="2" language="java" name="ma.gymmanager.model.Sport" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/Sport.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="708" y="134"/>    
+    <position height="475" width="156" x="380" y="1523"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="3" language="java" name="ma.gymmanager.model.GroupeSanguin" project="gymmanager" 
-    file="/gymmanager/src/main/java/ma/gymmanager/model/GroupeSanguin.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="860" y="1011"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </enumeration>  
-  <class id="4" language="java" name="ma.gymmanager.model.Groupe" project="gymmanager" 
+  <class id="3" language="java" name="ma.gymmanager.model.Groupe" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/Groupe.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="457" width="191" x="122" y="-68"/>    
+    <position height="457" width="191" x="367" y="-11"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="5" language="java" name="ma.gymmanager.model.JourS" project="gymmanager" 
+  <enumeration id="4" language="java" name="ma.gymmanager.model.JourS" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/JourS.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-46" y="896"/>    
+    <position height="205" width="126" x="-12" y="1523"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="6" language="java" name="ma.gymmanager.model.Adherent" project="gymmanager" 
+  <class id="5" language="java" name="ma.gymmanager.model.Adherent" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/Adherent.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="450" y="1136"/>    
+    <position height="997" width="173" x="407" y="486"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="ma.gymmanager.model.Role" project="gymmanager" 
+  <class id="6" language="java" name="ma.gymmanager.model.Role" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/Role.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1265" y="562"/>    
+    <position height="259" width="149" x="191" y="2038"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="ma.gymmanager.model.Planning" project="gymmanager" 
+  <class id="7" language="java" name="ma.gymmanager.model.Planning" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/Planning.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-22" y="410"/>    
+    <position height="403" width="163" x="-12" y="486"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="ma.gymmanager.model.Abonnement" project="gymmanager" 
+  <class id="8" language="java" name="ma.gymmanager.model.Abonnement" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/Abonnement.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="948" y="153"/>    
+    <position height="439" width="158" x="598" y="-11"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="ma.gymmanager.model.User" project="gymmanager" 
+  <class id="9" language="java" name="ma.gymmanager.model.User" project="gymmanager" 
     file="/gymmanager/src/main/java/ma/gymmanager/model/User.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="959" y="624"/>    
+    <position height="349" width="149" x="191" y="1523"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="11">    
-    <bendpoint x="324" y="-70"/>    
-    <bendpoint x="422" y="-82"/>    
-    <bendpoint x="506" y="-78"/>    
-    <bendpoint x="580" y="-62"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="12" name="sport"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="14">    
+  <association id="10">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="15" name="jourS"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="11" name="adherent"/>      
+      <multiplicity id="12" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="17">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="18" name="plannings"/>      
-      <multiplicity id="19" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="20">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="21" name="adherents"/>      
-      <multiplicity id="22" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="23">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="24" name="adherent"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="26">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="27" name="Groupe_Sanguin"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="29">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="30" name="entraineur"/>      
-      <multiplicity id="31" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="32">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="33" name="roles"/>      
-      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
+  <association id="13">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="14" name="plannings"/>      
+      <multiplicity id="15" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="35">    
+  <association id="16">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="36" name="sport"/>      
-      <multiplicity id="37" minimum="0" maximum="1"/>    
+      <attribute id="17" name="roles"/>      
+      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="19">    
+    <bendpoint x="610" y="486"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="20" name="sport"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="38">    
+  <association id="22">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="23" name="user"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="25">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="26" name="adherents"/>      
+      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <bendpoint x="376" y="486"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="29" name="sport"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="39" name="sports"/>      
-      <multiplicity id="40" minimum="0" maximum="2147483647"/>    
+      <attribute id="32" name="user"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="34">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="35" name="entraineur"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="38" name="jourS"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="41" name="sports"/>      
+      <multiplicity id="42" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
