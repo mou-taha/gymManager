@@ -9,6 +9,7 @@ public class SportConverter {
         if (bo == null)
             return null;
         SportVo vo = new SportVo();
+        vo.setEntraineur(bo.getEntraineur());
         vo.setId(bo.getId());
         vo.setNom(bo.getNom());
         vo.setMinAge(bo.getMinAge());
@@ -22,6 +23,7 @@ public class SportConverter {
         if (vo == null)
             return null;
         Sport bo = new Sport();
+        bo.setEntraineur(vo.getEntraineur());
         bo.setId(vo.getId());
         bo.setNom(vo.getNom());
         bo.setMinAge(vo.getMinAge());

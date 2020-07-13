@@ -41,8 +41,8 @@ public class DemoApplication implements CommandLineRunner{
 		// userService.save(new RoleVo("CLIENT"));
 		// userService.save(new RoleVo("ADMIN"));
 		// userService.save(new RoleVo("SUPERADMIN"));
-		// RoleVo coach=userService.getRoleByName("COACH");
-		// userService.add(new UserVo("a","a",Arrays.asList(coach)));
+		//  RoleVo coach=userService.getRoleByName("COACH");
+		//  userService.add(new UserVo("a","a",Arrays.asList(coach)));
 	}
 
 }

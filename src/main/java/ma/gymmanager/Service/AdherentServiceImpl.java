@@ -73,7 +73,7 @@ public class AdherentServiceImpl implements IAdherentService {
         message.setTo(adherentVo.getEmail());
         message.setText("votre  nom d'utilisateur c'est " + adherentVo.getNom() + "_" + adherentVo.getPrenom()
                 + ".le mot de passe c'est :" + adherentVo.getCin());
-        message.setSubject("Notification");
+        message.setSubject("Notification GYM MANAGER");
         MailSender.send(message);
     }
 

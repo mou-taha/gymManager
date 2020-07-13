@@ -1,9 +1,13 @@
 package ma.gymmanager.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +24,7 @@ public class Sport {
     private double prixSeance;
     private double prixMois;
     private int minAge;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_entraineur",referencedColumnName = "id")
+    private Entraineur entraineur;
 }

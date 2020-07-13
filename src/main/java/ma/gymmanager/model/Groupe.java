@@ -41,7 +41,7 @@ public class Groupe {
     @JoinTable(name = "adherent_groupe", joinColumns = @JoinColumn(name = "groupe_id"), inverseJoinColumns = @JoinColumn(name = "adherent_id"))
     private List<Adherent> adherents;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_groupe",referencedColumnName = "id")
-    private List<Planning> plannings;
+    // @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    // @JoinColumn(name = "fk_groupe",referencedColumnName = "id")
+    // private List<Planning> plannings;
 }
