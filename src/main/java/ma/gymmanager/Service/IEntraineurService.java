@@ -8,7 +8,8 @@ import ma.gymmanager.domaine.EntraineurVo;
 import ma.gymmanager.model.Entraineur;
 
 public interface IEntraineurService {
-    void save(EntraineurVo entraineurVo);
+    
+    EntraineurVo save(EntraineurVo entraineurVo);
     void add(EntraineurVo entraineurVo);
     List<EntraineurVo> findAll();
     void delete(int id);

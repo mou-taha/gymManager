@@ -5,15 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import lombok.Data;
 import ma.gymmanager.dao.SportRepositry;
 import ma.gymmanager.domaine.SportConverter;
 import ma.gymmanager.domaine.SportVo;
 import ma.gymmanager.model.Sport;
 
 @Service
+@Transactional
+@Data
 public class SportServiceImpl implements ISportService {
 
     @Autowired
@@ -26,7 +29,7 @@ public class SportServiceImpl implements ISportService {
 
     @Override
     public void delete(int id) {
-        sportDao.delete(SportConverter.toBo(findById(id)));
+        sportDao.delete(SportConverter.toBo(getById(id)));
     }
 
     @Override
@@ -35,7 +38,7 @@ public class SportServiceImpl implements ISportService {
     }
 
     @Override
-    public SportVo findById(int id) {
+    public SportVo getById(int id) {
         return SportConverter.toVo(sportDao.getOne(id));
     }
 

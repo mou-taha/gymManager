@@ -63,7 +63,7 @@ public class SportController {
     @RequestMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable int id, RedirectAttributes ra) {
         ModelAndView mv = new ModelAndView();
-        ra.addFlashAttribute("sportVoEdit", sportService.findById(id));
+        ra.addFlashAttribute("sportVoEdit", sportService.getById(id));
         mv.setViewName("redirect:/sports/");
         return mv;
     }

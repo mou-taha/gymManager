@@ -20,7 +20,7 @@ public class EntraineurConverter {
         bo.setTel(vo.getTel());
         bo.setUser(vo.getUser());
         bo.setVille(bo.getVille());
-        bo.setSports(vo.getSports());
+        bo.setSports(SportConverter.toListBo( vo.getSports()));
         return bo;
     }
 
@@ -36,7 +36,7 @@ public class EntraineurConverter {
         vo.setTel(bo.getTel());
         vo.setUser(bo.getUser());
         vo.setVille(bo.getVille());
-        vo.setSports(bo.getSports());
+        vo.setSports(SportConverter.toListVo( bo.getSports()));
         return vo;
     }
 

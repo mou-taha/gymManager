@@ -1,5 +1,6 @@
 package ma.gymmanager.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,7 +34,7 @@ public class Entraineur {
     private String ville; 
     private String adresse;
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "entraineur")
-    private List<Sport> sports;
+    private List<Sport> sports=new ArrayList<Sport>();
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user",referencedColumnName = "id")

@@ -11,6 +11,6 @@ public interface ISportService {
     void save(SportVo sportVo);
     void delete(int id);
     List<SportVo> findAll();
-    SportVo findById(int id);
+    SportVo getById(int id);
     Page<Sport> findAll(int pageId,int size);
 }

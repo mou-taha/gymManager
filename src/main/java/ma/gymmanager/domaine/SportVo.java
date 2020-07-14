@@ -13,9 +13,9 @@ public class SportVo {
     private double prixSeance;
     private double prixMois;
     private int minAge;
-    private Entraineur entraineur;
+    private EntraineurVo entraineur;
 
-    public SportVo(Entraineur entraineur,String description, double prixSeance, double prixMois, int minAge,String nom) {
+    public SportVo(EntraineurVo entraineur,String description, double prixSeance, double prixMois, int minAge,String nom) {
         this.description = description;
         this.prixSeance = prixSeance;
         this.prixMois = prixMois;

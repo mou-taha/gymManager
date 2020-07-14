@@ -62,6 +62,7 @@ public class AdherentServiceImpl implements IAdherentService {
     @Override
     public void add(AdherentVo adherentVo) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setSubject("Notification GYM MANAGER");
         // add default user to adherent
         User user = new User();
         user.setRoles(Arrays.asList(roleDao.findByNom("ADHERENT").get(0)));
@@ -73,7 +74,6 @@ public class AdherentServiceImpl implements IAdherentService {
         message.setTo(adherentVo.getEmail());
         message.setText("votre  nom d'utilisateur c'est " + adherentVo.getNom() + "_" + adherentVo.getPrenom()
                 + ".le mot de passe c'est :" + adherentVo.getCin());
-        message.setSubject("Notification GYM MANAGER");
         MailSender.send(message);
     }
 

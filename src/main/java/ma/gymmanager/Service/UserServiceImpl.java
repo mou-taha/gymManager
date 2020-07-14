@@ -105,5 +105,10 @@ public class UserServiceImpl implements IUserService {
         return RoleConverter.toVo(roleRepository.findByNom(nom).get(0));
     }
 
+    @Override
+    public RoleVo getById(int id) {
+        return RoleConverter.toVo(roleRepository.getOne(id));
+    }
+
 
 }

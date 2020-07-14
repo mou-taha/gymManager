@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header">
+    <meta name="author" content="">
+
+</head>
+
+<body>
+    <div th:if="${entraineurVoEdit.id!=null}">
+        <script>
+            $(document).ready(function() {
+                $("#edit").modal('show');
+            });
+        </script>
+    </div>
+    <div id="wrapper">
+        <nav th:replace="fragments/sidebar :: sidebar"> </nav>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="fragments/topbar :: topbar"></nav>
+                <div class="container-fluid">
+                    <!--row 1 (for title)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Liste des sports</h1>
+                        </div>
+                        <div class="col-sm">
+                            <button style="margin-left: 70%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">Ajouter</button>
+                        </div>
+                    </div>
+                    <!--end row 1 (for title)-->
+                    </br>
+                    <!--row 3 (for table)-->
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>prenom</th>
+                                    <th>Sexe</th>
+                                    <th>Tel</th>
+                                    <th>Email</th>
+                                    <th>Ville</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="entraineurVo : ${entraineurList}">
+                                    <td th:text="${entraineurVo.nom}"></td>
+                                    <td th:text="${entraineurVo.prenom}"></td>
+                                    <td th:text="${entraineurVo.sexe}"></td>
+                                    <td th:text=" ${entraineurVo.tel}"></td>
+                                    <td th:text=" ${entraineurVo.email}"></td>
+                                    <td th:text=" ${entraineurVo.ville}"></td>
+                                    <td><a th:href="@{/entraineurs/edit/{id}(id=${entraineurVo.id})}"><i
+                                                class="far fa-edit"></i>
+                                        </a></td>
+                                    <td><a data-toggle="modal" data-target="#exampleModal" href="#"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Suppression adherent
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez vraiment supprimer l'enraineur [[|${entraineurVo.nom} ${entraineurVo.prenom}|]] </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                    <a th:href="@{/entraineurs/delete/{id}(id=${entraineurVo.id})}">
+                                                        <button type="Submit" class="btn btn-danger">Supprimer</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li th:each="i : ${#numbers.sequence(0,totalPage-1)}" th:class=" ${#strings.equals(#strings.toString(i),#strings.toString(curentPage))}? 'active page-item': 'page-item'">
+                                    <a class="page-link" th:text=" ${i+1}" th:href="@{/entraineurs/{page}(page=${i})}"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--end row 3 (for table)-->
+                    <!--modal add new -->
+                    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{/entraineurs/add}" method="POST" th:object="${entraineurVo}">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ajouter entraineur</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="well">Information entraineur</h3>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="nom">Nom *</label>
+                                                <input type="text" th:field="*{nom}" class="form-control" id="nom">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="prenom">Prenom *</label>
+                                                <input type="text" th:field="*{prenom}" class="form-control" id="prenom">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="sexe">sexe</label>
+                                                <select th:field="*{sexe}" class="form-control" id="sexe">
+                                                    <option value="F">Féminin</option>
+                                                    <option value="M">Masculin</option>
+                                                </select>
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="cin">Cin N° *</label>
+                                                <input required type="text" th:field="*{cinN}" class="form-control" id="cin">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="tel">telephone</label>
+                                                <input type="number" th:field="*{tel}" class="form-control" id="tel">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="email">email *</label>
+                                                <input required type="email" th:field="*{email}" class="form-control" id="email">
+                                            </div>
+                                            <!--end input nom -->
+                                        </div>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="ville">ville</label>
+                                                <input type="text" th:field="*{ville}" class="form-control" id="ville">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="adresse">adresse</label>
+                                                <input type="text" th:field="*{adresse}" class="form-control" id="adresse">
+                                            </div>
+                                            <!--end input nom -->
+                                        </div>
+                                        <div class="form-row">
+                                            <!--input sports-->
+                                            <div class="form-group col-md-6">
+                                                <label for="multiple-sports">sports</label>
+                                                <select multiple="multiple" class="form-control" th:field="*{sports}" id="multiple-sports">
+                                                    <option th:each="sport : ${sportsList}"  th:value="${sport.id}" th:text="${sport.nom}"></option>    
+                                                </select>
+                                            </div>
+                                            <!--end input sports -->
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal and new-->
+                <!--modal edit -->
+                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form th:action="@{/entraineurs/save}" method="POST" th:object="${entraineurVoEdit}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modifier entraineur</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="well">Information entraineur</h3>
+                                    <input type="hidden" th:field="*{id}" class="form-control" id="id">
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="nom">Nom *</label>
+                                            <input required type="text" th:field="*{nom}" class="form-control" id="nom">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="prenom">Prenom *</label>
+                                            <input required type="text" th:field="*{prenom}" class="form-control" id="prenom">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="sexe">sexe</label>
+                                            <select th:field="*{sexe}" class="form-control" id="sexe">
+                                                <option value="F">Féminin</option>
+                                                <option value="M">Masculin</option>
+                                            </select>
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="cin">Cin N° *</label>
+                                            <input required type="text" th:field="*{cinN}" class="form-control" id="cin">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="tel">telephone</label>
+                                            <input type="number" th:field="*{tel}" class="form-control" id="tel">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="email">email *</label>
+                                            <input required type="email" th:field="*{email}" class="form-control" id="email">
+                                        </div>
+                                        <!--end input nom -->
+                                    </div>
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="ville">ville</label>
+                                            <input type="text" th:field="*{ville}" class="form-control" id="ville">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="adresse">adresse</label>
+                                            <input required type="text" th:field="*{adresse}" class="form-control" id="adresse">
+                                        </div>
+                                        <!--end input nom -->
+                                    </div>
+                                    <div class="form-row">
+                                        <!--input sports-->
+                                        <div class="form-group col-md-6">
+                                            <label for="sports">sports *</label>
+                                            <select required multiple="multiple" class="form-control" id="sports">
+                                                <option th:each="sport: ${sportsList}" th:text="${sport.nom}" 
+                                                th:value="${sport.nom}" th:selected="${entraineurVoEdit.sports.contains(sport)}"></option>    
+                                            </select>
+                                        </div>
+                                        <!--end input sports -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--end modal edit-->
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
