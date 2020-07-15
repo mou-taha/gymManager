@@ -8,8 +8,8 @@ import ma.gymmanager.domaine.GroupeVo;
 import ma.gymmanager.model.Groupe;
 
 public interface IGroupeService {
-    void save(GroupeVo adherentVo);
-    void add(GroupeVo adherentVo);
+    void save(GroupeVo groupeVo);
+    void add(GroupeVo groupeVo);
     List<GroupeVo> findAll();
     void delete(int id);
     GroupeVo getById(int id);

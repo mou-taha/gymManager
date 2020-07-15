@@ -2,7 +2,11 @@ package ma.gymmanager.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -95,7 +99,7 @@ public class EntraineurServiceImpl implements IEntraineurService {
         // remove child
         entraineur.setUser(null);
         save(entraineur);
-        for(SportVo s: entraineur.getSports()){
+        for (SportVo s : entraineur.getSports()) {
             s.setEntraineur(null);
             sportDao.save(SportConverter.toBo(s));
         }
@@ -110,6 +114,20 @@ public class EntraineurServiceImpl implements IEntraineurService {
     @Override
     public Page<Entraineur> findAll(int pageId, int size) {
         return entraineurDao.findAll(PageRequest.of(pageId, size));
+    }
+
+    @Override
+    public Set<Entraineur> getEntraineurBySport(int sportId) {
+        Set<Entraineur> entraineurList = new HashSet<Entraineur>();
+        List<Entraineur> ens = entraineurDao.findAll();
+        for (Entraineur e : ens) {
+            for (Sport s : e.getSports())
+                if (s.getId() == sportId)
+                {
+                    entraineurList.add(e.getId()+"");
+                }
+        }
+        return entraineurList;
     }
 
 }

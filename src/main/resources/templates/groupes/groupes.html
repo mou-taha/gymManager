@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header">
+    <meta name="author" content="">
+
+</head>
+
+<body>
+    <div th:if="${groupeVoEdit.id!=null}">
+        <script>
+            $(document).ready(function() {
+                $("#edit").modal('show');
+            });
+        </script>
+    </div>
+    <div id="wrapper">
+        <nav th:replace="fragments/sidebar :: sidebar"> </nav>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="fragments/topbar :: topbar"></nav>
+                <div class="container-fluid">
+                    <!--row 1 (for title)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Liste des groupes</h1>
+                        </div>
+                        <div class="col-sm">
+                            <button style="margin-left: 70%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">Ajouter</button>
+                        </div>
+                    </div>
+                    <!--end row 1 (for title)-->
+                    <!--row 2 (for button add)-->
+                    <div class="row">
+
+                    </div>
+                    </br>
+                    <!--end row 2 (for button add)-->
+                    <!--row 3 (for table)-->
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Nombre place</th>
+                                    <th>Entraineur</th>
+                                    <th>Sport</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="groupeVo : ${groupeList}">
+                                    <td th:text="${groupeVo.nom}"></td>
+                                    <td th:text="${adherentVo.nbplace}"></td>
+                                    <td th:text="${groupeVo.entraineur.nom}"></td>
+                                    <td th:text="${groupeVo.sport.sport}"></td>
+                                    <td><a th:href="@{/groupes/edit/{id}(id=${groupeVo.id})}"><i
+                                                class="far fa-edit"></i> </a></td>
+                                    <td><a data-toggle="modal" data-target="#exampleModal" href="#"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Suppression groupes
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez vraiment supprimer le groupe [[|${groupeVo.nom}|]] ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                    <a th:href="@{/groupes/delete/{id}(id=${groupeVo.id})}"> <button type="Submit" class="btn btn-danger">Supprimer</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li th:each="i : ${#numbers.sequence(0,totalPage-1)}" th:class=" ${#strings.equals(#strings.toString(i),#strings.toString(curentPage))}?'active page-item':'page-item'">
+                                    <a class="page-link" th:text=" ${i+1}" th:href="@{/groupes/{page}(page=${i})}"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--end row 3 (for table)-->
+                    <!--modal add new -->
+                    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{/groupes/add}" method="POST" th:object="${groupeVo}">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ajouter Groupe</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="well">Information Groupe</h3>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="nom">Nom *</label>
+                                                <input type="text" th:field="*{nom}" class="form-control" id="nom">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="nbp">Nombre place *</label>
+                                                <input required type="number" th:field="*{nbplace}" class="form-control" id="nbp">
+                                            </div>
+                                        </div>
+                                        <!--end input prenom-->
+                                        <div class="form-row">
+                                            <!--input dateN-->
+                                            <div class="form-group col-md-6">
+                                                <label for="sportid">Sport *</label>
+                                                <select required th:field="*{sport.id}" class="form-control" id="sportid">
+                                                    <option th:each="sport : ${sportList}" th:value="${sport.id}" th:text="${sport.sport}"></option>
+                                                </select>
+                                            </div>
+                                            <!--end input dateN-->
+                                            <!--input sexe-->
+                                            <div class="form-group col-md-6">
+                                                <label for="entraineurid">Entraineur *</label>
+                                                <select required th:field="*{entraineur.id}" class="form-control" id="entraineurid">
+                                                    <!-- <option th:each="en : ${entraineurList}" th:value="${en.id}" th:text="${en.nom +' '+en.prenom}"></option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal and new-->
+                <!--modal edit -->
+                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form th:action="@{/adherents/save}" method="POST" th:object="${groupeVoEdit}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modifier Groupe</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="well">Information Groupe</h3>
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="nom">Nom *</label>
+                                            <input type="text" th:field="*{nom}" class="form-control" id="nom">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="nbp">Nombre place *</label>
+                                            <input required type="number" th:field="*{nbplace}" class="form-control" id="nbp">
+                                        </div>
+                                    </div>
+                                    <!--end input prenom-->
+                                    <div class="form-row">
+                                        <!--input dateN-->
+                                        <div class="form-group col-md-6">
+                                            <label for="sportid">Sport *</label>
+                                            <select required th:field="*{sport.id}" class="form-control" id="sportid">
+                                                    <option th:each="sport : ${sportList}" th:value="${sport.id}" th:text="${sport.sport}"></option>
+                                                </select>
+                                        </div>
+                                        <!--end input dateN-->
+                                        <!--input sexe-->
+                                        <div class="form-group col-md-6">
+                                            <label for="entraineurid">Entraineur *</label>
+                                            <select required th:field="*{entraineur.id}" class="form-control" id="entraineurid">
+                                                    <option th:each="en : ${entraineurList}" th:value="${en.id}" th:text="${en.nom +' '+en.prenom}"></option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--end modal edit-->
+        </div>
+    </div>
+    </div>
+    <script>
+        function sendAjaxRequest() {
+            var sportId = $("#sportid").val();
+            $.get("/groupes/entraineur?sportid=" + sportId, function(data) {
+                $("#entraineurid").empty();
+
+                data.forEach(function(item, i) {
+                    alert("link");
+                    var option = "<option value = " + item + ">" + item + "</option>";
+                    $("#entraineurid").append(option);
+                });
+            });
+        };
+
+        $(document).ready(function() {
+            $("#sportid").change(function() {
+                sendAjaxRequest();
+            });
+        });
+    </script>
+</body>
+
+</html>

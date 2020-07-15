@@ -1,6 +1,8 @@
 package ma.gymmanager.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
@@ -15,5 +17,6 @@ public interface IEntraineurService {
     void delete(int id);
     EntraineurVo getById(int id);
     Page<Entraineur> findAll(int pageId, int size);
+    Set<String> getEntraineurBySport(int sportId);
     
 }
