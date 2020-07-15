@@ -3,7 +3,6 @@ package ma.gymmanager.domaine;
 import java.util.ArrayList;
 import java.util.List;
 
-import ma.gymmanager.model.Entraineur;
 import ma.gymmanager.model.Sport;
 
 public class SportConverter {
@@ -11,9 +10,9 @@ public class SportConverter {
         if (bo == null)
             return null;
         SportVo vo = new SportVo();
-        vo.setEntraineur(EntraineurConverter.toVo(bo.getEntraineur()));
+        vo.setEntraineur(bo.getEntraineur());
         vo.setId(bo.getId());
-        vo.setNom(bo.getNom());
+        vo.setSport(bo.getSport());
         vo.setMinAge(bo.getMinAge());
         vo.setPrixMois(bo.getPrixMois());
         vo.setPrixSeance(bo.getPrixSeance());
@@ -25,9 +24,9 @@ public class SportConverter {
         if (vo == null)
             return null;
         Sport bo = new Sport();
-        bo.setEntraineur(EntraineurConverter.toBo( vo.getEntraineur()));
+        bo.setEntraineur( vo.getEntraineur());
         bo.setId(vo.getId());
-        bo.setNom(vo.getNom());
+        bo.setSport(vo.getSport());
         bo.setMinAge(vo.getMinAge());
         bo.setPrixMois(vo.getPrixMois());
         bo.setPrixSeance(vo.getPrixSeance());

@@ -58,4 +58,11 @@ public class AdherentConverter {
             listVo.add(toVo(a));
         return listVo;
     }
+
+	public static List<Adherent> toListBo(List<AdherentVo> listVo) {
+        List<Adherent> listBo = new ArrayList<>();
+        for (AdherentVo a : listVo)
+            listBo.add(toBo(a));
+        return listBo;
+	}
 }

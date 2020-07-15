@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ma.gymmanager.Service.IEntraineurService;
 import ma.gymmanager.Service.ISportService;
+import ma.gymmanager.domaine.EntraineurVo;
 import ma.gymmanager.domaine.SportConverter;
 import ma.gymmanager.domaine.SportVo;
 import ma.gymmanager.model.Sport;
@@ -24,6 +26,14 @@ public class SportController {
 
     @Autowired
     ISportService sportService;
+
+    @Autowired
+    IEntraineurService entraineurService;
+
+    @ModelAttribute("entraineurList")
+    public List<EntraineurVo> entraineurList(){
+        return entraineurService.findAll();
+    }
 
     @RequestMapping(value = { "", "/", "/{page}" })
     public ModelAndView list(@ModelAttribute("sportVoEdit") SportVo sportVoEdit,

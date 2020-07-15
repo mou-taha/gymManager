@@ -1,5 +1,8 @@
 package ma.gymmanager.domaine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.gymmanager.model.Entraineur;
@@ -8,19 +11,19 @@ import ma.gymmanager.model.Entraineur;
 @NoArgsConstructor
 public class SportVo {
     private Integer id;
-    private String nom;
+    private String sport;
     private String description;
     private double prixSeance;
     private double prixMois;
     private int minAge;
-    private EntraineurVo entraineur;
+    private Entraineur entraineur;
 
-    public SportVo(EntraineurVo entraineur,String description, double prixSeance, double prixMois, int minAge,String nom) {
+    public SportVo(Entraineur entraineur,String description, double prixSeance, double prixMois, int minAge,String nom) {
         this.description = description;
         this.prixSeance = prixSeance;
         this.prixMois = prixMois;
         this.minAge = minAge;
-        this.nom=nom;
+        this.sport=nom;
         this.entraineur=entraineur;
     }
 }

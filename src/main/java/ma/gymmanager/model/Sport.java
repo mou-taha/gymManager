@@ -21,13 +21,12 @@ public class Sport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String nom;
+    private String sport;
     private String description;
     private double prixSeance;
     private double prixMois;
     private int minAge;
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_entraineur",referencedColumnName = "id")
-    @JsonIgnore
-    private Entraineur entraineur;
+     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+     @JoinColumn(name="fk_entraineur",referencedColumnName = "id")
+     private Entraineur entraineur;
 }

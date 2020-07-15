@@ -1,5 +1,8 @@
 package ma.gymmanager.presentation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -16,7 +19,9 @@ import ma.gymmanager.Service.SportServiceImpl;
 import ma.gymmanager.domaine.EntraineurConverter;
 import ma.gymmanager.domaine.EntraineurVo;
 import ma.gymmanager.domaine.SportConverter;
+import ma.gymmanager.domaine.SportVo;
 import ma.gymmanager.model.Entraineur;
+import ma.gymmanager.model.Sport;
 
 @Controller
 @RequestMapping("/entraineurs")
@@ -38,8 +43,8 @@ public class EntraineurController {
             mv.addObject("entraineurVoEdit", new EntraineurVo());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Page<Entraineur> pageable = entraineurService.findAll(page, 5);
+        mv.addObject("sportList",sportService.findAll());
         mv.addObject("entraineurList", EntraineurConverter.toListVo(pageable.getContent()));
-        mv.addObject("sportsList",sportService.findAll());
         mv.addObject("totalPage", pageable.getTotalPages());
         mv.addObject("userLogIn", auth.getName());
         mv.addObject("curentPage", page);
@@ -49,9 +54,7 @@ public class EntraineurController {
     @RequestMapping("/add")
     public ModelAndView add(@ModelAttribute("entraineurVo") EntraineurVo entraineurVo) {
         ModelAndView mv = new ModelAndView();
-        System.out.println("************************************************");
-        System.out.println(" >>>>>>>>>>>>>>>>>>>>>>" +entraineurVo.getSports().get(0).getNom());
-        //entraineurService.add(entraineurVo);
+        entraineurService.add(entraineurVo);
         mv.setViewName("redirect:/entraineurs/");
         return mv;
     }

@@ -52,44 +52,36 @@ public class EntraineurServiceImpl implements IEntraineurService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     @Override
-    public EntraineurVo save(EntraineurVo entraineurVo) {
-       entraineurVo=EntraineurConverter.toVo(entraineurDao.saveAndFlush(EntraineurConverter.toBo(entraineurVo)));
-       return entraineurVo;
+    public int save(EntraineurVo entraineurVo) {
+        Entraineur en = EntraineurConverter.toBo(entraineurVo);
+        List<Sport> sportPersist = new ArrayList<>();
+        for (Sport s : en.getSports()) {
+            sportPersist.add(sportDao.getOne(s.getId()));
+        }
+        en.setSports(sportPersist);
+        entraineurVo = EntraineurConverter.toVo(entraineurDao.saveAndFlush(en));
+        return entraineurVo.getId();
     }
 
     @Override
-    public void add(EntraineurVo entraineurVo) {
-        SimpleMailMessage message =new SimpleMailMessage();
+    public int add(EntraineurVo entraineurVo) {
+        SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject("Notification GYM MANAGER");
-        //create default user 
-        User user=new User();
-        user.setRoles(Arrays.asList( roleDao.findByNom("COACH").get(0)));
-        user.setUsername(entraineurVo.getNom()+"_"+entraineurVo.getPrenom());
+        // create default user
+        User user = new User();
+        user.setRoles(Arrays.asList(roleDao.findByNom("COACH").get(0)));
+        user.setUsername(entraineurVo.getNom() + "_" + entraineurVo.getPrenom());
         user.setPassword(bCryptPasswordEncoder.encode(entraineurVo.getCinN()));
         userDao.save(user);
         entraineurVo.setUser(user);
-        
-        List <Sport> sportsPersist=new ArrayList<>();
-        for(Sport s:SportConverter.toListBo( entraineurVo.getSports())){
-            Sport sport=sportDao.getOne(s.getId());
-            sportsPersist.add(sport);
-        }
-        entraineurVo.setSports(SportConverter.toListVo( sportsPersist));
-        entraineurVo= save(entraineurVo);
-        for(Sport s:SportConverter.toListBo(entraineurVo.getSports()))
-        {
-            Sport sport=sportDao.getOne(s.getId());
-            Entraineur en=new Entraineur();
-            en.setId(entraineurVo.getId());
-            sport.setEntraineur( en);
-            sportDao.save(sport);
-        }
+        entraineurVo.setSports(new ArrayList<>());
+        int id = save(entraineurVo);
         message.setTo(entraineurVo.getEmail());
         message.setText("votre  nom d'utilisateur c'est " + entraineurVo.getNom() + "_" + entraineurVo.getPrenom()
                 + ".le mot de passe c'est :" + entraineurVo.getCinN());
-        mailSender.send(message);
+        // mailSender.send(message);
+        return id;
     }
 
     @Override
@@ -99,11 +91,15 @@ public class EntraineurServiceImpl implements IEntraineurService {
 
     @Override
     public void delete(int id) {
-        EntraineurVo entraineur=getById(id);
-        //remove child
+        EntraineurVo entraineur = getById(id);
+        // remove child
         entraineur.setUser(null);
         save(entraineur);
-        entraineurDao.delete(EntraineurConverter.toBo(getById(id)));
+        for(SportVo s: entraineur.getSports()){
+            s.setEntraineur(null);
+            sportDao.save(SportConverter.toBo(s));
+        }
+        entraineurDao.delete(entraineurDao.getOne(id));
     }
 
     @Override

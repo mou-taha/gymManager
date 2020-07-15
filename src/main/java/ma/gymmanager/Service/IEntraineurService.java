@@ -9,8 +9,8 @@ import ma.gymmanager.model.Entraineur;
 
 public interface IEntraineurService {
     
-    EntraineurVo save(EntraineurVo entraineurVo);
-    void add(EntraineurVo entraineurVo);
+    int save(EntraineurVo entraineurVo);
+    int add(EntraineurVo entraineurVo);
     List<EntraineurVo> findAll();
     void delete(int id);
     EntraineurVo getById(int id);

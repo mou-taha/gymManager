@@ -23,10 +23,12 @@ public class EntraineurVo {
     private String ville; 
     private String adresse;
     private User user;
-    private List<SportVo> sports=new ArrayList<SportVo>();
+    private List<SportVo> sports;
+    private List<Integer> sportIds;
+
 
     public EntraineurVo(String nom, String prenom, char sexe, String cinN, String tel, String email, String ville,
-            String adresse, List<SportVo> sports) {
+            String adresse,List<SportVo> s) {
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
@@ -35,6 +37,6 @@ public class EntraineurVo {
         this.email = email;
         this.ville = ville;
         this.adresse = adresse;
-        this.sports = sports;
+        this.sports=s;
     }
 }
