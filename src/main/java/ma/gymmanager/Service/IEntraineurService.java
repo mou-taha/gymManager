@@ -17,6 +17,6 @@ public interface IEntraineurService {
     void delete(int id);
     EntraineurVo getById(int id);
     Page<Entraineur> findAll(int pageId, int size);
-    Set<String> getEntraineurBySport(int sportId);
+    List<EntraineurVo> getEntraineurBySport(int sportId);
     
 }

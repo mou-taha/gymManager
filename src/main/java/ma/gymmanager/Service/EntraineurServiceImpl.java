@@ -58,7 +58,15 @@ public class EntraineurServiceImpl implements IEntraineurService {
 
     @Override
     public int save(EntraineurVo entraineurVo) {
+        List<SportVo> sportsPersiste = new ArrayList<>();
+        for (Integer sId : entraineurVo.getSportIds()) {
+            SportVo svo = new SportVo();
+            svo.setId(sId);
+            sportsPersiste.add(svo);
+        }
+        entraineurVo.setSports(sportsPersiste);
         Entraineur en = EntraineurConverter.toBo(entraineurVo);
+
         List<Sport> sportPersist = new ArrayList<>();
         for (Sport s : en.getSports()) {
             sportPersist.add(sportDao.getOne(s.getId()));
@@ -80,11 +88,12 @@ public class EntraineurServiceImpl implements IEntraineurService {
         userDao.save(user);
         entraineurVo.setUser(user);
         entraineurVo.setSports(new ArrayList<>());
+
         int id = save(entraineurVo);
         message.setTo(entraineurVo.getEmail());
         message.setText("votre  nom d'utilisateur c'est " + entraineurVo.getNom() + "_" + entraineurVo.getPrenom()
                 + ".le mot de passe c'est :" + entraineurVo.getCinN());
-        // mailSender.send(message);
+        mailSender.send(message);
         return id;
     }
 
@@ -117,14 +126,15 @@ public class EntraineurServiceImpl implements IEntraineurService {
     }
 
     @Override
-    public Set<Entraineur> getEntraineurBySport(int sportId) {
-        Set<Entraineur> entraineurList = new HashSet<Entraineur>();
+    public List<EntraineurVo> getEntraineurBySport(int sportId) {
+        List<EntraineurVo> entraineurList = new ArrayList<EntraineurVo>();
         List<Entraineur> ens = entraineurDao.findAll();
         for (Entraineur e : ens) {
+            e.getSports();
             for (Sport s : e.getSports())
-                if (s.getId() == sportId)
-                {
-                    entraineurList.add(e.getId()+"");
+                if (s.getId() == sportId) {
+                    entraineurList.add(EntraineurConverter.toVo(e));
+                    System.out.println("yes yes yes "+s.getId()+" "+e.getId());
                 }
         }
         return entraineurList;

@@ -37,7 +37,7 @@ public class AdherentController {
         if (adherentVoEdit == null)
             mv.addObject("adherentVoEdit", new AdherentVo());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Page<Adherent> pageable = adherentService.findAll(page, 1);
+        Page<Adherent> pageable = adherentService.findAll(page, 5);
         mv.addObject("totalPage", pageable.getTotalPages());
         mv.addObject("userLogIn", auth.getName());
         mv.addObject("adherentsList", AdherentConverter.toListVo(pageable.getContent()));

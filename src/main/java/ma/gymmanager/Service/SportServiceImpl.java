@@ -1,5 +1,6 @@
 package ma.gymmanager.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.Data;
 import ma.gymmanager.dao.EntraineurRepository;
 import ma.gymmanager.dao.SportRepositry;
+import ma.gymmanager.domaine.EntraineurConverter;
 import ma.gymmanager.domaine.EntraineurVo;
 import ma.gymmanager.domaine.SportConverter;
 import ma.gymmanager.domaine.SportVo;
@@ -30,21 +32,26 @@ public class SportServiceImpl implements ISportService {
 
     @Override
     public void save(SportVo sportVo) {
-        Entraineur EntraineurVoPersiste =entraineurDao.getOne(sportVo.getEntraineur().getId());
-        sportVo.setEntraineur(EntraineurVoPersiste);
+        List<Entraineur> listenPersiste=new ArrayList<>();
+        for(Entraineur en :EntraineurConverter.toListBo( sportVo.getEntraineur()))
+        {
+            Entraineur EntraineurVoPersiste =entraineurDao.getOne(en.getId());
+            listenPersiste.add(EntraineurVoPersiste);
+        }
+        sportVo.setEntraineur(EntraineurConverter.toListVo( listenPersiste));
         sportDao.save(SportConverter.toBo(sportVo));
     }
 
     @Override
     public void delete(int id) {
         Sport s=sportDao.getOne(id);
-        s.setEntraineur(null);
+       // s.setEntraineurs(null);
         //sportDao.save(s);
         sportDao.deleteById(id);
     }
 
     @Override
-    public List<SportVo> findAll() {
+    public List<SportVo> getAllSports() {
         return SportConverter.toListVo(sportDao.findAll());
     }
 

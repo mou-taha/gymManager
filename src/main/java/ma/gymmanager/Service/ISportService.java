@@ -10,7 +10,7 @@ import ma.gymmanager.model.Sport;
 public interface ISportService {
     void save(SportVo sportVo);
     void delete(int id);
-    List<SportVo> findAll();
+    List<SportVo> getAllSports();
     SportVo getById(int id);
     Page<Sport> findAll(int pageId,int size);
 }

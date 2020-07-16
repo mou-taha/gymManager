@@ -2,6 +2,7 @@ package ma.gymmanager.domaine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class EntraineurVo {
     private String adresse;
     private User user;
     private List<SportVo> sports;
-    private List<Integer> sportIds;
+    private Set<Integer> sportIds;
 
 
     public EntraineurVo(String nom, String prenom, char sexe, String cinN, String tel, String email, String ville,

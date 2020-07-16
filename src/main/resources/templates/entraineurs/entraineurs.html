@@ -60,8 +60,7 @@
                                     <td><a th:href="@{/entraineurs/edit/{id}(id=${entraineurVo.id})}"><i
                                                 class="far fa-edit"></i>
                                         </a></td>
-                                    <td><a data-toggle="modal" th:data-target="${'#delete-modal'+entraineurVo.id}" href="#"><i
-                                                class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                    <td><a data-toggle="modal" th:data-target="${'#delete-modal'+entraineurVo.id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                     <div class="modal fade" th:id="${'delete-modal'+entraineurVo.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -125,7 +124,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div th:if="${entraineurVoEdit.id!=null}" class="modal-body">
                                         <h3 class="well">Information entraineur</h3>
                                         <input type="hidden" th:field="*{id}" class="form-control" id="id">
                                         <div class="form-row">
@@ -185,6 +184,15 @@
                                             </div>
                                             <!--end input nom -->
                                         </div>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="multiple-sports">Sports *</label>
+                                                <select multiple name="sportIds" class="form-control" id="multiple-sports">
+                                                    <option th:each="sport : ${sportList}" th:selected="${entraineurVoEdit.sports.contains(sport)}" th:value="${sport.id}" th:text="${sport.sport}"></option>   
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -216,13 +224,13 @@
                             <!--input nom-->
                             <div class="form-group col-md-6">
                                 <label for="nom">Nom *</label>
-                                <input required text="text" th:field="*{nom}" class="form-control" id="nom">
+                                <input value="test" required text="text" th:field="*{nom}" class="form-control" id="nom">
                             </div>
                             <!--end input nom -->
                             <!--input prenom-->
                             <div class="form-group col-md-6">
                                 <label for="prenom">Prenom *</label>
-                                <input required type="text" th:field="*{prenom}" class="form-control" id="prenom">
+                                <input value="test" required type="text" th:field="*{prenom}" class="form-control" id="prenom">
                             </div>
                         </div>
                         <div class="form-row">
@@ -238,7 +246,7 @@
                             <!--input prenom-->
                             <div class="form-group col-md-6">
                                 <label for="cin">Cin N° *</label>
-                                <input required type="text" th:field="*{cinN}" class="form-control" id="cin">
+                                <input value="test" required type="text" th:field="*{cinN}" class="form-control" id="cin">
                             </div>
                         </div>
                         <div class="form-row">
@@ -251,7 +259,7 @@
                             <!--input nom-->
                             <div class="form-group col-md-6">
                                 <label for="email">email *</label>
-                                <input required type="email" th:field="*{email}" class="form-control" id="email">
+                                <input value="t.mousnia@gmail.com" required type="email" th:field="*{email}" class="form-control" id="email">
                             </div>
                             <!--end input nom -->
                         </div>
@@ -271,12 +279,12 @@
                         </div>
                         <div class="form-row">
                             <!--input nom-->
-                            <!-- <div class="form-group col-md-6">
-                                <label for="sports">Sports</label>
-                                <select multiple th:field="*{sportIds}" class="form-control" id="sports">
+                            <div class="form-group col-md-6">
+                                <label for="multiple-sports">Sports *</label>
+                                <select multiple th:field="*{sportIds}" class="form-control" id="multiple-sports">
                                     <option th:each="sport : ${sportList}" th:value="${sport.id}" th:text="${sport.sport}"></option>   
                                 </select>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -286,7 +294,6 @@
                 </div>
             </form>
         </div>
-    </div>
     </div>
     <!--end modal and new-->
 </body>

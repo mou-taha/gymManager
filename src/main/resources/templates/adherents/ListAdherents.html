@@ -114,13 +114,13 @@
                                         <div class="form-row">
                                             <!--input nom-->
                                             <div class="form-group col-md-6">
-                                                <label for="nom">Nom</label>
-                                                <input type="text" th:field="*{nom}" class="form-control" id="nom">
+                                                <label for="nom">Nom *</label>
+                                                <input required type="text" th:field="*{nom}" class="form-control" id="nom">
                                             </div>
                                             <!--end input nom -->
                                             <!--input prenom-->
                                             <div class="form-group col-md-6">
-                                                <label for="prenom">Prenom</label>
+                                                <label for="prenom">Prenom *</label>
                                                 <input required type="text" th:field="*{prenom}" class="form-control" id="Prenom">
                                             </div>
                                         </div>
@@ -128,7 +128,7 @@
                                         <div class="form-row">
                                             <!--input dateN-->
                                             <div class="form-group col-md-6">
-                                                <label for="dateB">Date naissance</label>
+                                                <label for="dateB">Date naissance *</label>
                                                 <input required type="date" th:field="*{dateNString}" class="form-control" id="dateB">
                                             </div>
                                             <!--end input dateN-->
@@ -151,8 +151,8 @@
                                             <!--end input tel-->
                                             <!--input email-->
                                             <div class="form-group col-md-6">
-                                                <label for="email">Email</label>
-                                                <input type="email" th:field="*{email}" class="form-control" id="email">
+                                                <label for="email">Email *</label>
+                                                <input required type="email" th:field="*{email}" class="form-control" id="email">
                                             </div>
                                             <!--end input email-->
                                         </div>
@@ -173,13 +173,13 @@
                                         <div class="form-row">
                                             <!--input cin-->
                                             <div class="form-group col-md-6">
-                                                <label for="cin">Cin N°</label>
+                                                <label for="cin">Cin N° *</label>
                                                 <input required type="text" th:field="*{cin}" class="form-control" id="cin">
                                             </div>
                                             <!--end input cin-->
                                             <!--input groupe Sanguin-->
                                             <div class="form-group col-md-6">
-                                                <label for="GroupeSanguin">Maladie déclarer</label>
+                                                <label for="GroupeSanguin">Groupe Sanguin</label>
                                                 <select th:field="*{GroupeSanguin}" class="form-control" id="Groups">
                                                     <option value="A+"> A RHESUS POSITIF</option>
                                                     <option value="A-"> A RHESUS Négatif</option>
@@ -243,13 +243,13 @@
                                     <div class="form-row">
                                         <!--input nom-->
                                         <div class="form-group col-md-6">
-                                            <label for="nom">Nom</label>
-                                            <input type="text" th:field="*{nom}" class="form-control" id="nom">
+                                            <label for="nom">Nom *</label>
+                                            <input required type="text" th:field="*{nom}" class="form-control" id="nom">
                                         </div>
                                         <!--end input nom -->
                                         <!--input prenom-->
                                         <div class="form-group col-md-6">
-                                            <label for="prenom">Prenom</label>
+                                            <label for="prenom">Prenom *</label>
                                             <input required type="text" th:field="*{prenom}" class="form-control" id="Prenom">
                                         </div>
                                     </div>
@@ -257,7 +257,7 @@
                                     <div class="form-row">
                                         <!--input dateN-->
                                         <div class="form-group col-md-6">
-                                            <label for="dateB">Date naissance</label>
+                                            <label for="dateB">Date naissance *</label>
                                             <input required type="date" th:field="*{dateNString}" class="form-control" id="dateB">
                                         </div>
                                         <!--end input dateN-->
@@ -280,8 +280,8 @@
                                         <!--end input tel-->
                                         <!--input email-->
                                         <div class="form-group col-md-6">
-                                            <label for="email">Email</label>
-                                            <input type="email" th:field="*{email}" class="form-control" id="email">
+                                            <label for="email">Email *</label>
+                                            <input required type="email" th:field="*{email}" class="form-control" id="email">
                                         </div>
                                         <!--end input email-->
                                     </div>
@@ -302,13 +302,13 @@
                                     <div class="form-row">
                                         <!--input cin-->
                                         <div class="form-group col-md-6">
-                                            <label for="cin">Cin N°</label>
+                                            <label for="cin">Cin N° *</label>
                                             <input required type="text" th:field="*{cin}" class="form-control" id="cin">
                                         </div>
                                         <!--end input cin-->
                                         <!--input groupe Sanguin-->
                                         <div class="form-group col-md-6">
-                                            <label for="GroupeSanguin">Maladie déclarer</label>
+                                            <label for="GroupeSanguin">Maladie déclarer </label>
                                             <select th:field="*{GroupeSanguin}" class="form-control" id="Groups">
                                                 <option value=""> Groupe sanguin</option>
                                                 <option value="A+"> A RHESUS POSITIF</option>

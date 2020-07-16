@@ -10,7 +10,7 @@ public class SportConverter {
         if (bo == null)
             return null;
         SportVo vo = new SportVo();
-        vo.setEntraineur(bo.getEntraineur());
+      //  vo.setEntraineur(EntraineurConverter.toListVo(bo.getEntraineurs()));
         vo.setId(bo.getId());
         vo.setSport(bo.getSport());
         vo.setMinAge(bo.getMinAge());
@@ -24,7 +24,7 @@ public class SportConverter {
         if (vo == null)
             return null;
         Sport bo = new Sport();
-        bo.setEntraineur( vo.getEntraineur());
+     //   bo.setEntraineurs(EntraineurConverter.toListBo(vo.getEntraineur()));
         bo.setId(vo.getId());
         bo.setSport(vo.getSport());
         bo.setMinAge(vo.getMinAge());

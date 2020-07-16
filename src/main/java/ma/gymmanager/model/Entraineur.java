@@ -17,12 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity(name = "entraineurs")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Entraineur {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +38,8 @@ public class Entraineur {
     private String ville; 
     private String adresse;
     
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "entraineur")
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(name="entraineur_sport",joinColumns = @JoinColumn(name="entraineur_id"),inverseJoinColumns = @JoinColumn(name="sport_id"))
     private List<Sport> sports;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)

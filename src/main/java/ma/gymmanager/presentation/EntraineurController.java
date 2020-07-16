@@ -1,7 +1,9 @@
 package ma.gymmanager.presentation;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,13 +45,14 @@ public class EntraineurController {
             mv.addObject("entraineurVoEdit", new EntraineurVo());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Page<Entraineur> pageable = entraineurService.findAll(page, 5);
-        mv.addObject("sportList",sportService.findAll());
+        mv.addObject("sportList", sportService.getAllSports());
         mv.addObject("entraineurList", EntraineurConverter.toListVo(pageable.getContent()));
         mv.addObject("totalPage", pageable.getTotalPages());
         mv.addObject("userLogIn", auth.getName());
         mv.addObject("curentPage", page);
         return mv;
     }
+
 
     @RequestMapping("/add")
     public ModelAndView add(@ModelAttribute("entraineurVo") EntraineurVo entraineurVo) {
@@ -59,9 +62,10 @@ public class EntraineurController {
         return mv;
     }
 
+
     @RequestMapping("/save")
     public ModelAndView save(@ModelAttribute("entraineurVoEdit") EntraineurVo entraineurVo) {
-        ModelAndView mv = new ModelAndView();
+        ModelAndView mv = new ModelAndView(); 
         entraineurService.save(entraineurVo);
         mv.setViewName("redirect:/entraineurs");
         return mv;
@@ -79,6 +83,11 @@ public class EntraineurController {
     public ModelAndView edit(@PathVariable int id, RedirectAttributes ra) {
         ModelAndView mv = new ModelAndView();
         EntraineurVo entraineurVoEdit = entraineurService.getById(id);
+        entraineurVoEdit.getSports();
+        for(SportVo s:entraineurVoEdit.getSports()){
+            System.out.println(s.getId()+"<<<<<<<<<<<<<<<<<<<<<<<<");
+            System.out.println(s.getSport()+"<<<<<<<<<<<<<<<<<<<<<<<<");
+        }
         mv.setViewName("redirect:/entraineurs");
         ra.addFlashAttribute("entraineurVoEdit", entraineurVoEdit);
         return mv;

@@ -1,5 +1,6 @@
 package ma.gymmanager.presentation;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,8 +20,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ma.gymmanager.Service.IEntraineurService;
 import ma.gymmanager.Service.IGroupeService;
 import ma.gymmanager.Service.ISportService;
+import ma.gymmanager.domaine.EntraineurVo;
 import ma.gymmanager.domaine.GroupeConverter;
 import ma.gymmanager.domaine.GroupeVo;
+import ma.gymmanager.model.Entraineur;
 import ma.gymmanager.model.Groupe;
 
 @Controller
@@ -45,7 +48,7 @@ public class GroupeController {
         if (groupeVoEdit == null)
             mv.addObject("groupeVoEdit", new GroupeVo());
         Page<Groupe> pageable=groupeService.findAll(page, 5);
-        mv.addObject("sportList", sportService.findAll());
+        mv.addObject("sportList", sportService.getAllSports());
         mv.addObject("entraineurList", entraineurService.findAll());
         mv.addObject("groupeVo", new GroupeVo());
         mv.addObject("listGrpupe",GroupeConverter.toListVo(pageable.getContent()));
@@ -88,10 +91,10 @@ public class GroupeController {
         return mv;
     }
 
-    @RequestMapping("/entraineur")
+    @RequestMapping(path = "/entraineur",produces = "application/json")
     @ResponseBody
-    public Set<String> getEntraineurBySport(@RequestParam String sportid){
-        Set<String> sportL=entraineurService.getEntraineurBySport(Integer.parseInt(sportid));
+    public List<EntraineurVo> getEntraineurBySport(@RequestParam String sportid){
+        List<EntraineurVo> sportL=entraineurService.getEntraineurBySport(Integer.parseInt(sportid));
         return sportL;
     }
 

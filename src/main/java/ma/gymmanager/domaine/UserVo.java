@@ -20,7 +20,6 @@ public class UserVo {
         this.username = username;
         this.roles = roles;
     }
-
     
 
 }

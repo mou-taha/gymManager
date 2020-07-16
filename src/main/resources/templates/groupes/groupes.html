@@ -206,7 +206,7 @@
     <script>
         function sendAjaxRequest() {
             var sportId = $("#sportid").val();
-            $.get("/groupes/entraineur?sportid=" + sportId, function(data) {
+            $.getJSON("/groupes/entraineur?sportid=" + sportId, function(data) {
                 $("#entraineurid").empty();
 
                 data.forEach(function(item, i) {
