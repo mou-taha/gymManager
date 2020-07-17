@@ -7,8 +7,9 @@ import ma.gymmanager.model.Entraineur;
 
 public class EntraineurConverter {
 
-
     public static Entraineur toBo(EntraineurVo vo) {
+        if (vo == null)
+			return null;
         Entraineur bo = new Entraineur();
         bo.setId(vo.getId());
         bo.setNom(vo.getNom());
@@ -25,6 +26,8 @@ public class EntraineurConverter {
     }
 
     public static EntraineurVo toVo(Entraineur bo) {
+        if (bo == null)
+			return null;
         EntraineurVo vo = new EntraineurVo();
         vo.setId(bo.getId());
         vo.setNom(bo.getNom());
@@ -41,6 +44,8 @@ public class EntraineurConverter {
     }
 
     public static List<EntraineurVo> toListVo(List<Entraineur> listBo) {
+        if (listBo == null || listBo.isEmpty())
+            return null;
         List<EntraineurVo> listVo = new ArrayList<>();
         for (Entraineur e : listBo)
             listVo.add(toVo(e));
@@ -48,6 +53,8 @@ public class EntraineurConverter {
     }
 
     public static List<Entraineur> toListBo(List<EntraineurVo> listVo) {
+        if (listVo == null || listVo.isEmpty())
+            return null;
         List<Entraineur> listBo = new ArrayList<>();
         for (EntraineurVo e : listVo)
             listBo.add(toBo(e));

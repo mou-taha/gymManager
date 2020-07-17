@@ -1,45 +1,16 @@
 package ma.gymmanager.presentation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ma.gymmanager.Service.IEntraineurService;
-import ma.gymmanager.Service.IGroupeService;
-import ma.gymmanager.Service.ISportService;
-import ma.gymmanager.domaine.AdherentVo;
-import ma.gymmanager.domaine.EntraineurVo;
-import ma.gymmanager.domaine.GroupeConverter;
-import ma.gymmanager.domaine.GroupeVo;
-import ma.gymmanager.domaine.SportVo;
-import ma.gymmanager.exceptions.GroupeHadAdherentException;
-import ma.gymmanager.model.Adherent;
-import ma.gymmanager.model.Entraineur;
-import ma.gymmanager.model.Groupe;
+import ma.gymmanager.Service.IAbonnementService;
 
 @Controller
-@RequestMapping("/groupes")
-public class GroupeController {
+@RequestMapping("/entraineurs")
+public class AbonnementController {
 
     @Autowired
-    IGroupeService groupeService;
+    IAbonnementService abonnementService;
 
     @Autowired
     ISportService sportService;
@@ -116,5 +87,5 @@ public class GroupeController {
         }
         return ResponseEntity.ok(map);
     }
-
+    
 }

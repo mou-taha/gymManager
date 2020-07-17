@@ -10,7 +10,7 @@ public class SportConverter {
         if (bo == null)
             return null;
         SportVo vo = new SportVo();
-      //  vo.setEntraineur(EntraineurConverter.toListVo(bo.getEntraineurs()));
+        // vo.setEntraineur(EntraineurConverter.toListVo(bo.getEntraineurs()));
         vo.setId(bo.getId());
         vo.setSport(bo.getSport());
         vo.setMinAge(bo.getMinAge());
@@ -24,7 +24,7 @@ public class SportConverter {
         if (vo == null)
             return null;
         Sport bo = new Sport();
-     //   bo.setEntraineurs(EntraineurConverter.toListBo(vo.getEntraineur()));
+        // bo.setEntraineurs(EntraineurConverter.toListBo(vo.getEntraineur()));
         bo.setId(vo.getId());
         bo.setSport(vo.getSport());
         bo.setMinAge(vo.getMinAge());
@@ -35,14 +35,17 @@ public class SportConverter {
     }
 
     public static List<SportVo> toListVo(List<Sport> listBo) {
+        if (listBo == null || listBo.isEmpty())
+            return null;
         List<SportVo> listVo = new ArrayList<>();
         for (Sport s : listBo)
             listVo.add(toVo(s));
         return listVo;
     }
 
-
     public static List<Sport> toListBo(List<SportVo> listVo) {
+        if (listVo == null || listVo.isEmpty())
+            return null;
         List<Sport> listBo = new ArrayList<>();
         for (SportVo s : listVo)
             listBo.add(toBo(s));

@@ -1,5 +1,6 @@
 package ma.gymmanager.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,6 +18,6 @@ public interface IEntraineurService {
     void delete(int id);
     EntraineurVo getById(int id);
     Page<Entraineur> findAll(int pageId, int size);
-    List<EntraineurVo> getEntraineurBySport(int sportId);
+    ArrayList<EntraineurVo> getEntraineurBySport(int sportId);
     
 }

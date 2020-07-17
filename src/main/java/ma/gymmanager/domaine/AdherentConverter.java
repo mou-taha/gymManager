@@ -53,16 +53,20 @@ public class AdherentConverter {
     }
 
     public static List<AdherentVo> toListVo(List<Adherent> listBo) {
+        if (listBo == null || listBo.isEmpty())
+            return null;
         List<AdherentVo> listVo = new ArrayList<>();
         for (Adherent a : listBo)
             listVo.add(toVo(a));
         return listVo;
     }
 
-	public static List<Adherent> toListBo(List<AdherentVo> listVo) {
+    public static List<Adherent> toListBo(List<AdherentVo> listVo) {
+        if (listVo == null || listVo.isEmpty())
+            return null;
         List<Adherent> listBo = new ArrayList<>();
         for (AdherentVo a : listVo)
             listBo.add(toBo(a));
         return listBo;
-	}
+    }
 }

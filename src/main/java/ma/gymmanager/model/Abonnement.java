@@ -25,10 +25,11 @@ public class Abonnement {
     private Date dateDebut;
     private int nbMois;
     private Date datePaiment;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinColumn(name="fk_adherent",referencedColumnName="id",nullable=false)
     private Adherent adherent;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinColumn(name="fk_sport",referencedColumnName="id",nullable=false)
     private Sport sport;
 }

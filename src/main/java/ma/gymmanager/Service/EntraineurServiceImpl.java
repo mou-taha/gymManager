@@ -126,15 +126,14 @@ public class EntraineurServiceImpl implements IEntraineurService {
     }
 
     @Override
-    public List<EntraineurVo> getEntraineurBySport(int sportId) {
-        List<EntraineurVo> entraineurList = new ArrayList<EntraineurVo>();
+    public ArrayList<EntraineurVo> getEntraineurBySport(int sportId) {
+        ArrayList<EntraineurVo> entraineurList = new ArrayList<EntraineurVo>();
         List<Entraineur> ens = entraineurDao.findAll();
         for (Entraineur e : ens) {
             e.getSports();
             for (Sport s : e.getSports())
                 if (s.getId() == sportId) {
                     entraineurList.add(EntraineurConverter.toVo(e));
-                    System.out.println("yes yes yes "+s.getId()+" "+e.getId());
                 }
         }
         return entraineurList;
