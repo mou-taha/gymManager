@@ -112,7 +112,7 @@ public class GroupeController {
         ArrayList<EntraineurVo> sportL = entraineurService.getEntraineurBySport(Integer.parseInt(sportid));
         HashMap<String, String> map = new HashMap<String, String>();
         for (EntraineurVo e : sportL) {
-            map.put(e.getId() + "", e.getNom()+" "+e.getPrenom());
+            map.put(e.getId() + "", e.getNom() + " " + e.getPrenom());
         }
         return ResponseEntity.ok(map);
     }

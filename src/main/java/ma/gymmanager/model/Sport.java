@@ -26,7 +26,6 @@ public class Sport {
     private Integer id;
     private String sport;
     private String description;
-    private double prixSeance;
     private double prixMois;
     private int minAge;
 }

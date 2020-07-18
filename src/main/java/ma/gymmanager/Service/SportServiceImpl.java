@@ -32,13 +32,6 @@ public class SportServiceImpl implements ISportService {
 
     @Override
     public void save(SportVo sportVo) {
-        List<Entraineur> listenPersiste=new ArrayList<>();
-        for(Entraineur en :EntraineurConverter.toListBo( sportVo.getEntraineur()))
-        {
-            Entraineur EntraineurVoPersiste =entraineurDao.getOne(en.getId());
-            listenPersiste.add(EntraineurVoPersiste);
-        }
-        sportVo.setEntraineur(EntraineurConverter.toListVo( listenPersiste));
         sportDao.save(SportConverter.toBo(sportVo));
     }
 

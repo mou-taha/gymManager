@@ -1,5 +1,6 @@
 package ma.gymmanager.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -22,9 +23,9 @@ public class Abonnement {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer id;
-    private Date dateDebut;
+    private LocalDate dateDebut;
     private int nbMois;
-    private Date datePaiment;
+    private LocalDate datePaiment;
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinColumn(name="fk_adherent",referencedColumnName="id",nullable=false)
     private Adherent adherent;

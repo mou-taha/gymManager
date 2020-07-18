@@ -84,10 +84,6 @@ public class EntraineurController {
         ModelAndView mv = new ModelAndView();
         EntraineurVo entraineurVoEdit = entraineurService.getById(id);
         entraineurVoEdit.getSports();
-        for(SportVo s:entraineurVoEdit.getSports()){
-            System.out.println(s.getId()+"<<<<<<<<<<<<<<<<<<<<<<<<");
-            System.out.println(s.getSport()+"<<<<<<<<<<<<<<<<<<<<<<<<");
-        }
         mv.setViewName("redirect:/entraineurs");
         ra.addFlashAttribute("entraineurVoEdit", entraineurVoEdit);
         return mv;

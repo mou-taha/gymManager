@@ -25,10 +25,10 @@ public class AbonnementConverter {
         Abonnement bo = new Abonnement();
         bo.setAdherent(AdherentConverter.toBo(Vo.getAdherent()));
         bo.setSport(SportConverter.toBo(Vo.getSport()));
-        bo.setDateDebut(bo.getDateDebut());
-        bo.setDatePaiment(bo.getDatePaiment());
-        bo.setId(bo.getId());
-        bo.setNbMois(bo.getNbMois());
+        bo.setDateDebut(Vo.getDateDebut());
+        bo.setDatePaiment(Vo.getDatePaiment());
+        bo.setId(Vo.getId());
+        bo.setNbMois(Vo.getNbMois());
         return bo;
     }
 

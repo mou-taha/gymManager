@@ -108,10 +108,6 @@ public class EntraineurServiceImpl implements IEntraineurService {
         // remove child
         entraineur.setUser(null);
         save(entraineur);
-        for (SportVo s : entraineur.getSports()) {
-            s.setEntraineur(null);
-            sportDao.save(SportConverter.toBo(s));
-        }
         entraineurDao.delete(entraineurDao.getOne(id));
     }
 

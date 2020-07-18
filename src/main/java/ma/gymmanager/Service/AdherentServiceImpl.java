@@ -87,4 +87,6 @@ public class AdherentServiceImpl implements IAdherentService {
         return adherentDao.findAll(PageRequest.of(pageId, size));
     }
 
+
+
 }

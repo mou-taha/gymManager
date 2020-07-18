@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header">
+    <meta name="author" content="">
+
+</head>
+
+<body>
+    <div th:if="${abonnementVoEdit.id!=null}">
+        <script>
+            $(document).ready(function() {
+                $("#edit").modal('show');
+            });
+        </script>
+    </div>
+    <div id="wrapper">
+        <nav th:replace="fragments/sidebar :: sidebar"> </nav>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="fragments/topbar :: topbar"></nav>
+                <div th:if="${errorMsg!=''}" class="alert alert-danger alert-dismissible show" role="alert">
+                    <strong>[[|${errorMsg}|]]</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="container-fluid">
+                    <!--row 1 (for title)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Liste des abonnements</h1>
+                        </div>
+                        <div class="col-sm">
+                            <button style="margin-left: 70%;margin-top: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">Ajouter</button>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-between">
+                        <div class="col-sm"></div>
+                        <div class="col-sm">
+                            <div>
+                                <div class="dropdown" style="display: inline; margin-left: 70%;">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-filter"></i> Filter
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" th:href="@{/abonnements/}">Tous</a>
+                                        <a class="dropdown-item" th:href="@{/abonnements?filter=valid}">Valide</a>
+                                        <a class="dropdown-item" th:href="@{/abonnements?filter=invalid}">Invalide</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--end row 1 (for title)-->
+                    <!--row 2 (for button add)-->
+                    <div class="row">
+
+                    </div>
+                    </br>
+                    <!--end row 2 (for button add)-->
+                    <!--row 3 (for table)-->
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Adherent</th>
+                                    <th>date paiement</th>
+                                    <th>date debut</th>
+                                    <th>date fin</th>
+                                    <th>Sport</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:style="${abonnementVo.getDateDebut().plusMonths(abonnementVo.getNbMois()).isAfter(localdate)? 'background-color:#E7FDE2': 'background-color:#F2DCDE'}" th:each="abonnementVo : ${abonnementList}">
+                                    <td th:text="${abonnementVo.adherent.nom + ' '+abonnementVo.adherent.prenom}">
+                                    </td>
+                                    <td th:text="${abonnementVo.datePaiment}"></td>
+                                    <td th:text="${abonnementVo.dateDebut}"></td>
+                                    <td th:text="${abonnementVo.dateDebut.plusMonths(abonnementVo.nbMois)}">
+                                    </td>
+                                    <td th:text="${abonnementVo.sport.sport}"></td>
+                                    <td><a th:href="@{/abonnements/edit/{id}(id=${abonnementVo.id})}"><i
+                                                class="far fa-edit"></i> </a></td>
+                                    <td><a data-toggle="modal" th:data-target="${ '#delete-modal'+abonnementVo.id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                    <div class="modal fade" th:id="${ 'delete-modal'+abonnementVo.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Suppression abonnement
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez vraiment supprimer l'abonnement ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                    <a th:href="@{/abonnements/delete/{id}(id=${abonnementVo.id})}">
+                                                        <button type="Submit" class="btn btn-danger">Supprimer</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!--end row 3 (for table)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li th:each="i : ${#numbers.sequence(0,totalPage-1)}" th:class=" ${#strings.equals(#strings.toString(i),#strings.toString(curentPage))}? 'active page-item': 'page-item'">
+                                        <a class="page-link" th:text=" ${i+1}" th:href="@{/abonnements/{page}(page=${i})}"></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-sm">
+                            <span class="badge text-black-50" style="background-color:#E7FDE2;display: block;width: fit-content;margin-left: 70%;">Valide abonnement</span>
+                            <span class="badge text-black-50" style="background-color:#F2DCDE;display: block;width: fit-content;margin-left: 70%;">Invalide abonnement</span>
+                        </div>
+                    </div>
+                    <!--modal add new -->
+                    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{/abonnements/save}" method="POST" th:object="${abonnementVo}">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ajouter Abonnement</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="well">Information Abonnement</h3>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="nom">Date Debut *</label>
+                                                <input required type="date" th:field="*{dateDebutString}" class="form-control" id="nom">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="nbmois">Nombre mois *</label>
+                                                <select class="form-control" th:field="*{nbMois}" id="nbmois">
+                                                    <option th:each="i, iStat : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--end input prenom-->
+                                        <div class="form-row">
+                                            <!--input dateN-->
+                                            <div class="form-group col-md-6">
+                                                <label for="sportid">Sport *</label>
+                                                <select required th:field="*{sport.id}" class="form-control" id="sportid">
+                                                    <option text="" value=""></option>
+                                                    <option th:each="sport : ${sportList}" th:value="${sport.id}" th:text="${sport.sport}"></option>
+                                                </select>
+                                            </div>
+                                            <!--end input dateN-->
+                                            <!--input sexe-->
+                                            <div class="form-group col-md-6">
+                                                <label for="adherentId">Adherent *</label>
+                                                <select required th:field="*{adherent.id}" class="form-control" id="adherentId">
+                                                    <option text="" value=""></option>
+                                                    <option th:each="ad : ${adherentList}" th:value="${ad.id}" th:text="${ad.nom + ' '+ad.prenom}"></option> 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="nom">Tarrif mois </label>
+                                                <input readonly type="text" name="" id="tarif-mois">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6" style="margin-top: 30px;">
+                                                <label style="color: red;margin-left: 30px;" for="nom">Total </label>
+                                                <label style="color: red;" id="tarif-total"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal and new-->
+
+                <!--modal edit -->
+                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form th:action="@{/abonnements/save}" method="POST" th:object="${abonnementVoEdit}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modifier abonnement</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="well">Information Abonnement</h3>
+                                    <input th:field="*{id}">
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="nom">Date Debut *</label>
+                                            <input required type="date" th:field="*{dateDebutString}" class="form-control" id="nom">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="nbmois">Nombre mois *</label>
+                                            <select class="form-control" th:field="*{nbMois}" id="nbmois">
+                                                <option th:each="i, iStat : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--end input prenom-->
+                                    <div class="form-row">
+                                        <!--input dateN-->
+                                        <div class="form-group col-md-6">
+                                            <label for="sportid">Sport *</label>
+                                            <select required th:field="*{sport.id}" class="form-control" id="sportid">
+                                                <option text="" value=""></option>
+                                                <option th:each="sport : ${sportList}" th:value="${sport.id}" th:text="${sport.sport}"></option>
+                                            </select>
+                                        </div>
+                                        <!--end input dateN-->
+                                        <!--input sexe-->
+                                        <div class="form-group col-md-6">
+                                            <label for="adherentId">Adherent *</label>
+                                            <select required th:field="*{adherent.id}" class="form-control" id="adherentId">
+                                                <option text="" value=""></option>
+                                                <option th:each="ad : ${adherentList}" th:value="${ad.id}" th:text="${ad.nom + ' '+ad.prenom}"></option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="nom">Tarrif mois </label>
+                                            <input readonly type="text" name="" id="tarif-mois">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6" style="margin-top: 30px;">
+                                            <label style="color: red;margin-left: 30px;" for="nom">Total </label>
+                                            <label style="color: red;" id="tarif-total"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end modal edit-->
+    </div>
+    </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $("#sportid").change(function() {
+                sendAjaxRequest();
+            });
+        });
+        $(document).ready(function() {
+            $("#nbmois").change(function() {
+                sendAjaxRequest();
+            });
+        });
+
+        function sendAjaxRequest() {
+            var sportId = $("#sportid").val();
+            $.getJSON('/abonnements/sportTarif?sportId=' + sportId, function(data) {
+                $("#tarif-mois").empty();
+                $("#tarif-mois").val(data);
+                //prixMois = $("#tarif-mois").val();
+                nbMois = $("#nbmois").val();
+                $("#tarif-total").text(nbMois * data + ' MAD')
+            });
+        };
+    </script>
+</body>
+
+</html>

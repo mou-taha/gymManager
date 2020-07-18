@@ -15,7 +15,6 @@ public class SportConverter {
         vo.setSport(bo.getSport());
         vo.setMinAge(bo.getMinAge());
         vo.setPrixMois(bo.getPrixMois());
-        vo.setPrixSeance(bo.getPrixSeance());
         vo.setDescription(bo.getDescription());
         return vo;
     }
@@ -29,7 +28,6 @@ public class SportConverter {
         bo.setSport(vo.getSport());
         bo.setMinAge(vo.getMinAge());
         bo.setPrixMois(vo.getPrixMois());
-        bo.setPrixSeance(vo.getPrixSeance());
         bo.setDescription(vo.getDescription());
         return bo;
     }
