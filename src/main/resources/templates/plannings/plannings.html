@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header">
+    <meta name="author" content="">
+
+</head>
+
+<body>
+    <div th:if="${planningVoEdit.id!=null}">
+        <script>
+            $(document).ready(function() {
+                $("#edit").modal('show');
+            });
+        </script>
+    </div>
+
+    <div id="wrapper">
+
+        <nav th:replace="fragments/sidebar :: sidebar"> </nav>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="fragments/topbar :: topbar"></nav>
+                <div class="container-fluid">
+                    <!--row 1 (for title)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Liste des plannings</h1>
+                        </div>
+                        <div class="col-sm">
+                            <button style="margin-left: 70%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">Ajouter</button>
+                        </div>
+                    </div>
+                    <!--end row 1 (for title)-->
+                    </br>
+                    <!--row 3 (for table)-->
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Jour Semainf</th>
+                                    <th>Groupe</th>
+                                    <th>Heur debut</th>
+                                    <th>Heur Fin</th>
+                                    <th>Commentaire</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="planingVo : ${planningList}">
+                                    <td th:text="${planingVo.jourSemaine}"></td>
+                                    <td th:text="${planingVo.groupe.nom}"></td>
+                                    <td th:text=" ${planingVo.heurDebut}"></td>
+                                    <td th:text=" ${planingVo.heurFin}"></td>
+                                    <td th:text=" ${planingVo.Commentaire}"></td>
+                                    <td><a th:href="@{/plannings/edit/{id}(id=${planningVo.id})}"><i class="far fa-edit"></i>
+                                        </a></td>
+                                    <td><a data-toggle="modal" th:data-target="${'#delete-modal'+sportVo.id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                    <div class="modal fade" th:id="${'delete-modal'+sportVo.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Suppression planning
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez vraiment supprimer sport [[|${sportVo.sport}|]]
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                    <a th:href="@{/sports/delete/{id}(id=${sportVo.id})}"> <button type="Submit" class="btn btn-danger">Supprimer</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li th:each="i : ${#numbers.sequence(0,totalPage-1)}" th:class=" ${#strings.equals(#strings.toString(i),#strings.toString(curentPage))}? 'active page-item': 'page-item'">
+                                    <a class="page-link" th:text=" ${i+1}" th:href="@{/sports/{page}(page=${i})}"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--end row 3 (for table)-->
+                    <!--modal add new -->
+                    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{/sports/add}" method="POST" th:object="${sportVo}">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ajouter Sport</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div th:if="${entraineurList.size()==0}" class="modal-body">
+                                        <h4>Veulliez ajouter aumoin un
+                                            <a th:href="@{/entraineurs/}">entraineur</a></h4>
+                                    </div>
+                                    <div th:if="${entraineurList.size()>0}" class="modal-body">
+                                        <h3 class="well">Information sport</h3>
+                                        <div class="form-row">
+                                            <!--input nom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="nom">Nom *</label>
+                                                <input required type="text" th:field="*{sport}" class="form-control" id="nom">
+                                            </div>
+                                            <!--end input nom -->
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="desc">Description</label>
+                                                <input type="text" th:field="*{description}" class="form-control" id="desc">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <!--input prenom-->
+                                            <div class="form-group col-md-6">
+                                                <label for="prixm">Prix Mois *</label>
+                                                <input required type="text" th:field="*{prixMois}" class="form-control" id="prixm">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="age">Minimum age *</label>
+                                                <input required type="number" th:field="*{minAge}" class="form-control" id="age">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:if="${entraineurList.size()>0}" class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal and new-->
+                <!--modal edit -->
+                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form th:action="@{/sports/save}" method="POST" th:object="${sportVoEdit}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modifier sport</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="well">Information sport</h3>
+                                    <input type="hidden" th:field="*{id}" class="form-control" id="id">
+                                    <div class="form-row">
+                                        <!--input nom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="nom">Nom *</label>
+                                            <input required type="text" th:field="*{sport}" class="form-control" id="nom">
+                                        </div>
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="desc">Description</label>
+                                            <input required type="text" th:field="*{description}" class="form-control" id="desc">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <!--end input nom -->
+                                        <!--input prenom-->
+                                        <div class="form-group col-md-6">
+                                            <label for="prixm">Prix Mois *</label>
+                                            <input required type="text" th:field="*{prixMois}" class="form-control" id="prixm">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="age">Minimum age</label>
+                                            <input type="number" th:field="*{minAge}" class="form-control" id="age">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--end modal edit-->
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

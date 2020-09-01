@@ -7,6 +7,11 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +36,7 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserRepository userRepository;
-    
+
     @Autowired
     private RoleRepository roleRepository;
 
@@ -59,7 +64,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void add(UserVo user) {
-        User u=UserConverter.toBo(user);
+        User u = UserConverter.toBo(user);
         u.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         List<Role> rolesPersist = new ArrayList<>();
         for (Role role : u.getRoles()) {
@@ -71,33 +76,48 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void update(UserVo user) {
-        // TODO Auto-generated method stub
-
+    public void save(UserVo user) {
+        List<Role> rolesPersist = new ArrayList<>();
+        User old = userRepository.getOne(user.getId());
+        User u = UserConverter.toBo(user);
+        if(old.getPassword()==null)
+            old.setPassword("");
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa >"+u.getPassword());
+            System.out.println("ccccccccccccccccccccccccccccccccccc >"+old.getPassword());
+        if (!(old.getPassword().equals(u.getPassword())))
+            u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
+        for (Role role : u.getRoles()) {
+            Role userRole = roleRepository.findByNom(role.getNom()).get(0);
+            rolesPersist.add(userRole);
+        }
+        System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbb >"+u.getPassword());
+        u.setRoles(rolesPersist);
+        userRepository.save(u);
     }
 
     @Override
     public void save(RoleVo role) {
         roleRepository.save(RoleConverter.toBo(role));
-        
     }
 
     @Override
-    public void delete(Long userId) {
-        // TODO Auto-generated method stub
-
+    public void delete(int userId) {
+        roleRepository.deleteById(userId);
     }
 
     @Override
     public List<UserVo> getAlluUsers() {
-        // TODO Auto-generated method stub
-        return null;
+        return UserConverter.toVoList(userRepository.findAll());
     }
 
     @Override
     public List<RoleVo> getAllRoles() {
-        // TODO Auto-generated method stub
-        return null;
+        List<RoleVo> roleList = RoleConverter.toVoList(roleRepository.findAll());
+        // List<RoleVo> roles=new ArrayList<>();
+        // for (RoleVo r : roleList)
+        // if (!(r.getNom().equals("ADHERENT")) && !(r.getNom().equals("COACH")))
+        // roles.add(r);
+        return roleList;
     }
 
     @Override
@@ -106,9 +126,24 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public RoleVo getById(int id) {
+    public RoleVo getRoleById(int id) {
         return RoleConverter.toVo(roleRepository.getOne(id));
     }
 
+    @Override
+    public UserVo getUserById(int id) {
+        return UserConverter.toVo(userRepository.getOne(id));
+    }
+
+    @Override
+    public Page<User> getAlluUsers(int page, int size) {
+        return userRepository.findAll(PageRequest.of(page, size));
+    }
+
+    @Override
+    public Page<RoleVo> getAllRoles(int page, int size) {
+
+        return null;
+    }
 
 }

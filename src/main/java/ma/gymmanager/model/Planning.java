@@ -27,6 +27,7 @@ public class Planning {
     private Time heureDebut;
     private Time heurFin;
     private String Commentaire;
+    
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_groupe",referencedColumnName = "id")
     private Groupe groupe;

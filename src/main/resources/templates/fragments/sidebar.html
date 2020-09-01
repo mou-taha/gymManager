@@ -56,14 +56,21 @@
 
         <!-- Nav Item - plannings -->
         <li class="nav-item">
-            <a class="nav-link" href="#" aria-expanded="true">
+            <a class="nav-link" th:href="@{/plannings/}" aria-expanded="true">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Plannings</span>
             </a>
         </li>
+        <!-- Nav Item - consultation -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/plannings/consultation}" aria-expanded="true">
+                <i class="fas fa-calendar-alt"></i>
+                <span> consultation des plannings</span>
+            </a>
+        </li>
         <!-- Nav Item - superadmin -->
         <li class="nav-item">
-            <a class="nav-link" href="#" aria-expanded="true">
+            <a class="nav-link" th:href="@{/superadmin/}" aria-expanded="true">
                 <i class="fas fa-calendar-alt"></i>
                 <span> Gestion des utilisateurs</span>
             </a>

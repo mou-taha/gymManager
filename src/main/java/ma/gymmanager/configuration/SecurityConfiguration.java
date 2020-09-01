@@ -28,11 +28,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll().antMatchers("/index")
-                .permitAll().and().csrf().disable().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/index", true)
-                .usernameParameter("username").passwordParameter("password").and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/").and()
-                .exceptionHandling().accessDeniedPage("/access-denied");
+        .hasAnyAuthority("ADHERENT", "COACH","ADMIN","COACH","SUPERADMIN")
+        .antMatchers("/abonnements/**", "/adherents/**", "/entraineurs/**",
+        "/groupes/**",
+        "/plannings/", "/sports/**")
+        .hasAuthority("ADMIN").antMatchers("/superadmin/**").hasAuthority("SUPERADMIN")
+        .antMatchers("/plannings/consultation/**").hasAnyAuthority("ADHERENT",
+        "COACH").anyRequest()
+        .authenticated().and().csrf().disable().formLogin().loginPage("/login").failureUrl("/login?error=true")
+        .defaultSuccessUrl("/index",
+        true).usernameParameter("username").passwordParameter("password").and()
+        .logout().logoutRequestMatcher(new
+        AntPathRequestMatcher("/logout")).logoutSuccessUrl("/").and()
+        .exceptionHandling().accessDeniedPage("/access-denied");
+        // http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll().and().csrf().disable()
+        //         .formLogin().loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/index", true)
+        //         .usernameParameter("username").passwordParameter("password").and().logout()
+        //         .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/").and()
+        //         .exceptionHandling().accessDeniedPage("/access-denied");
     }
 
     @Override

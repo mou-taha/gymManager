@@ -63,9 +63,9 @@
                                     <td th:text="${adherentVo.GroupeSanguin}"></td>
                                     <td><a th:href="@{/adherents/edit/{id}(id=${adherentVo.id})}"><i
                                                 class="far fa-edit"></i> </a></td>
-                                    <td><a data-toggle="modal" data-target="#exampleModal" href="#"><i
-                                                class="fa fa-trash" aria-hidden="true"></i></a></td>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <td><a data-toggle="modal" th:data-target="${'#delete-modal'+adherentVo.id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+
+                                    <div class="modal fade" th:id="${ 'delete-modal'+adherentVo.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">

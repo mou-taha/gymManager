@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sf="http://www.w3.org/1999/xhtml" lang="en">
+
+
+</html>
+
+<head th:include=" fragments/header :: header">
+</head>
+
+<body>
+    <div th:if="${userVoEdit.id!=null}">
+        <script>
+            $(document).ready(function() {
+                $("#edit").modal('show');
+            });
+        </script>
+    </div>
+    <div id="wrapper">
+        <nav th:replace="fragments/sidebar :: sidebar"> </nav>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="fragments/topbar :: topbar"></nav>
+                <div th:if="${errorMsg!='' }" class="alert alert-danger alert-dismissible show" role="alert">
+                    <strong>[[|${errorMsg}|]]</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="container-fluid">
+                    <!--row 1 (for title)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Liste des utilisateurs</h1>
+                        </div>
+                        <div class="col-sm">
+                            <button style="margin-left: 70%;margin-top: 20px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">Ajouter</button>
+                        </div>
+                    </div>
+                    <!--end row 1 (for title)-->
+                    <!--row 2 (for button add)-->
+                    <div class="row">
+
+                    </div>
+                    </br>
+                    <!--end row 2 (for button add)-->
+                    <!--row 3 (for table)-->
+                    <div class="row">
+                        <table class="table table-condensed" style="border-collapse:collapse;">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>nom</th>
+                                </tr>
+                            </thead>
+                            <tbody th:each="user : ${userList}">
+                                <tr>
+                                    <td><button data-toggle="collapse" th:data-target="${ '#'+user.id}" class="btn btn-default btn-xs accordion-toggle"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                                    <td th:text="${user.username}"></td>
+                                    <td><a th:href="@{/superadmin/edit/{id}(id=${user.id})}"><i class="far fa-edit"></i>
+                                        </a></td>
+                                    <td><a data-toggle="modal" th:data-target="${'#delete-modal'+userVo.id}" href="#"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" class="hiddenRow">
+                                        <div class="accordian-body collapse" th:id="${user.id}">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Roles</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="r : ${user.roles}">
+                                                        <td th:text="${r.nom}"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <div ta-toggle="modal" th:data-target="${ '#delete-modal'+userVo.id}" href="#">
+                                    <div class="modal fade" th:id="${ 'delete-modal'+userVo.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Suppression d'utilisateur
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez vraiment supprimer l'utilisateur?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                    <a th:href="@{/superadmin/delete/{id}(id=${userVo.id})}">
+                                                        <button type="Submit" class="btn btn-danger">Supprimer</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!--end row 3 (for table)-->
+                    <div class="row">
+                        <div class="col-sm">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li th:each="i : ${#numbers.sequence(0,totalPage-1)}" th:class=" ${#strings.equals(#strings.toString(i),#strings.toString(curentPage))}? 'active page-item': 'page-item'">
+                                        <a class="page-link" th:text=" ${i+1}" th:href="@{/superadmin/{page}(page=${i})}"></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--modal add new -->
+                    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{/superadmin/add}" method="POST" th:object="${userVo}">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ajouter utilisateur</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="well">Information utilisateur</h3>
+                                        <div class="form-row col-md-6">
+                                            <div class="form-group">
+                                                <label for="username">nom d'utilisateur</label>
+                                                <input th:field="*{username}" type="text" id="username" name="name" th:placeholder="Username" class="form-control" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="password">mot de passe</label>
+                                                <input th:field="*{password}" type="text" id="password" name="name" th:placeholder="password" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <!--end input prenom-->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="dropOperator">Liste des roles</label>
+                                                <select multiple="multiple" class="form-control" th:field="*{roles}" id="multiple-roles">
+                                                    <option th:each="role : ${roleList}" th:value="${role.nom}" th:text="${role.nom}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                        <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal and new-->
+
+                <!--modal edit -->
+                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form th:action="@{/superadmin/save}" method="POST" th:object="${userVoEdit}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Ajouter utilisateur</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="well">Information utilisateur</h3>
+                                    <input type="hidden" th:field="*{id}" id="id" name="name" th:placeholder="id" class="form-control" />
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="username">nom d'utilisateur</label>
+                                            <input th:field="*{username}" type="text" th:placeholder="Username" th:value="*{username}" class="form-control" />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input id="checkPass" type="checkbox" onclick="show(this)">
+                                            <label for="checkPass">Initialiser le mot de passe</label>
+                                            <input style="display: none;" th:field="*{password}" type="text" th:placeholder="password" th:value="*{password}" class="form-control pass-input" />
+                                        </div>
+                                    </div>
+                                    <!--end input prenom-->
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="dropOperator">Liste des roles</label>
+                                            <select multiple="multiple" class="form-control" id="multiple-roles" name="roles">
+                                                <option th:each="role : ${roleList}" th:value="${role.nom}"
+                                                    th:selected="${userVoEdit.roles?.contains(role)}" th:text="${role.nom}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button class="btn btn-primary" type="Submit">Sauvgarder</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal edit-->
+    </div>
+    <script>
+        var val = $('.pass-input').val();
+
+        function show(obj) {
+            var $input = $(obj);
+            if ($input.prop('checked')) {
+                $('.pass-input').show();
+                $('.pass-input').attr('value', '');
+            } else {
+                $('.pass-input').hide();
+                $('.pass-input').attr('value', val);
+            }
+        }
+    </script>
+</body>
+
+
+</html>

@@ -19,6 +19,11 @@
     <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 
 </head>
+<style>
+    .apass:hover {
+        color: #333
+    }
+</style>
 
 <body class="bg-gradient-primary">
 
@@ -41,16 +46,23 @@
                                     </div>
                                     <form class="user" th:action="@{/login}" method="POST">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" value="a" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                            <input type="text" class="form-control form-control-user" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" value="a" id="password" name="password" placeholder="Password">
+                                            <div class="input-group" id="show_hide_password">
+                                                <input class="form-control form-control-user" type="password" id="password" name="password">
+                                                <div class="input-group-addon">
+                                                    <a class="apass" href=""><i class="fa fa-eye-slash"
+                                                            aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                            <!-- <input type="text" class="form-control form-control-user" id="password" name="password" placeholder="Password"> -->
                                             </br>
                                         </div>
                                         <div align="center" th:if="${param.error}">
                                             <p style="font-size: 20; color: rgb(252, 51, 48);">Nom d'utilisateur ou Mot de passe est incorrect
                                         </div>
-                                        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+                                        <button class="btn btn-lg btn-primary btn-block " name="Submit " value="Login " type="Submit " th:text="Login "></button>
                                         <hr>
                                     </form>
                                     <hr>
@@ -67,8 +79,24 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/vendor/jquery/jquery.min.js} "></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js} "></script>
 </body>
+<script>
+    $(document).ready(function() {
+        $("#show_hide_password a").on('click', function(event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+    });
+</script>
 
 </html>

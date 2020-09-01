@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header">
+    <meta name="author" content="">
+
+</head>
+<style type="text/css">
+    h1,
+    h2 {
+        font-size: 40px;
+        color: #dc8100;
+        text-decoration: none;
+    }
+    
+    #article {
+        display: block;
+        text-align: left;
+        width: 650px;
+        margin: 0 auto;
+    }
+    
+    h1:hover,
+    h2:hover {
+        color: #333;
+        text-decoration: none;
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+        <nav th:replace="fragments/sidebar :: sidebar"> </nav>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="fragments/topbar :: topbar"></nav>
+                <div id="article">
+                    <h1>Consultation plannings</h1>
+                    <h2>On developpement...</h2>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

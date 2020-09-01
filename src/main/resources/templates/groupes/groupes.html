@@ -74,7 +74,7 @@
                                     <td th:text="${groupeVo.nbplace}"></td>
                                     <td th:text="${groupeVo.entraineur.nom + ' '+groupeVo.entraineur.prenom }">
                                     </td>
-                                    <td th:text="${groupeVo.sport.sport+}"></td>
+                                    <td th:text="${groupeVo.sport.sport}"></td>
                                     <td><a th:href="@{/groupes/edit/{id}(id=${groupeVo.id})}"><i
                                                     class="far fa-edit"></i> </a></td>
                                     <td><a data-toggle="modal" th:data-target="${ '#delete-modal'+groupeVo.id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
@@ -227,11 +227,6 @@
         </div>
     </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $(".toast").toast('show');
-        });
-    </script>
     <script>
         function sendAjaxRequest() {
             var sportId = $("#sportid").val();
